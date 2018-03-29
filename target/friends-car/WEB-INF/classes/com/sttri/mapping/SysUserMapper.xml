@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sttri.dao.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.sttri.entity.SysUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="wxid" property="wxid" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="love_mot" property="loveMot" jdbcType="INTEGER" />
+    <result column="love_insurance" property="loveInsurance" jdbcType="INTEGER" />
+    <result column="love_maintain" property="loveMaintain" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wxid, nickname, sex, city, mobile, type, love_mot, love_insurance, love_maintain, 
+    remark, addtime, edittime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysUserCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sttri.entity.SysUserCriteria" >
+    delete from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sttri.entity.SysUser" >
+    insert into sys_user (id, wxid, nickname, 
+      sex, city, mobile, 
+      type, love_mot, love_insurance, 
+      love_maintain, remark, addtime, 
+      edittime)
+    values (#{id,jdbcType=INTEGER}, #{wxid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{loveMot,jdbcType=INTEGER}, #{loveInsurance,jdbcType=INTEGER}, 
+      #{loveMaintain,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{edittime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sttri.entity.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wxid != null" >
+        wxid,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="loveMot != null" >
+        love_mot,
+      </if>
+      <if test="loveInsurance != null" >
+        love_insurance,
+      </if>
+      <if test="loveMaintain != null" >
+        love_maintain,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="edittime != null" >
+        edittime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wxid != null" >
+        #{wxid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="loveMot != null" >
+        #{loveMot,jdbcType=INTEGER},
+      </if>
+      <if test="loveInsurance != null" >
+        #{loveInsurance,jdbcType=INTEGER},
+      </if>
+      <if test="loveMaintain != null" >
+        #{loveMaintain,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sttri.entity.SysUserCriteria" resultType="java.lang.Integer" >
+    select count(*) from sys_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxid != null" >
+        wxid = #{record.wxid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loveMot != null" >
+        love_mot = #{record.loveMot,jdbcType=INTEGER},
+      </if>
+      <if test="record.loveInsurance != null" >
+        love_insurance = #{record.loveInsurance,jdbcType=INTEGER},
+      </if>
+      <if test="record.loveMaintain != null" >
+        love_maintain = #{record.loveMaintain,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.edittime != null" >
+        edittime = #{record.edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_user
+    set id = #{record.id,jdbcType=INTEGER},
+      wxid = #{record.wxid,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      love_mot = #{record.loveMot,jdbcType=INTEGER},
+      love_insurance = #{record.loveInsurance,jdbcType=INTEGER},
+      love_maintain = #{record.loveMaintain,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      edittime = #{record.edittime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sttri.entity.SysUser" >
+    update sys_user
+    <set >
+      <if test="wxid != null" >
+        wxid = #{wxid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="loveMot != null" >
+        love_mot = #{loveMot,jdbcType=INTEGER},
+      </if>
+      <if test="loveInsurance != null" >
+        love_insurance = #{loveInsurance,jdbcType=INTEGER},
+      </if>
+      <if test="loveMaintain != null" >
+        love_maintain = #{loveMaintain,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        edittime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sttri.entity.SysUser" >
+    update sys_user
+    set wxid = #{wxid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      love_mot = #{loveMot,jdbcType=INTEGER},
+      love_insurance = #{loveInsurance,jdbcType=INTEGER},
+      love_maintain = #{loveMaintain,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      edittime = #{edittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

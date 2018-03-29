@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sttri.dao.ShopAppointmentMapper" >
+  <resultMap id="BaseResultMap" type="com.sttri.entity.ShopAppointment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="business_type" property="businessType" jdbcType="INTEGER" />
+    <result column="business_date" property="businessDate" jdbcType="VARCHAR" />
+    <result column="time_no" property="timeNo" jdbcType="INTEGER" />
+    <result column="business_total" property="businessTotal" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, shop_id, business_type, business_date, time_no, business_total, addtime, edittime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.ShopAppointmentCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shop_appointment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_appointment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop_appointment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sttri.entity.ShopAppointmentCriteria" >
+    delete from shop_appointment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sttri.entity.ShopAppointment" >
+    insert into shop_appointment (id, shop_id, business_type, 
+      business_date, time_no, business_total, 
+      addtime, edittime)
+    values (#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{businessType,jdbcType=INTEGER}, 
+      #{businessDate,jdbcType=VARCHAR}, #{timeNo,jdbcType=INTEGER}, #{businessTotal,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sttri.entity.ShopAppointment" >
+    insert into shop_appointment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="businessDate != null" >
+        business_date,
+      </if>
+      <if test="timeNo != null" >
+        time_no,
+      </if>
+      <if test="businessTotal != null" >
+        business_total,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="edittime != null" >
+        edittime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="businessDate != null" >
+        #{businessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="timeNo != null" >
+        #{timeNo,jdbcType=INTEGER},
+      </if>
+      <if test="businessTotal != null" >
+        #{businessTotal,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sttri.entity.ShopAppointmentCriteria" resultType="java.lang.Integer" >
+    select count(*) from shop_appointment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shop_appointment
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessDate != null" >
+        business_date = #{record.businessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeNo != null" >
+        time_no = #{record.timeNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessTotal != null" >
+        business_total = #{record.businessTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.edittime != null" >
+        edittime = #{record.edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shop_appointment
+    set id = #{record.id,jdbcType=INTEGER},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      business_type = #{record.businessType,jdbcType=INTEGER},
+      business_date = #{record.businessDate,jdbcType=VARCHAR},
+      time_no = #{record.timeNo,jdbcType=INTEGER},
+      business_total = #{record.businessTotal,jdbcType=INTEGER},
+      addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      edittime = #{record.edittime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sttri.entity.ShopAppointment" >
+    update shop_appointment
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="businessDate != null" >
+        business_date = #{businessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="timeNo != null" >
+        time_no = #{timeNo,jdbcType=INTEGER},
+      </if>
+      <if test="businessTotal != null" >
+        business_total = #{businessTotal,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        edittime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sttri.entity.ShopAppointment" >
+    update shop_appointment
+    set shop_id = #{shopId,jdbcType=INTEGER},
+      business_type = #{businessType,jdbcType=INTEGER},
+      business_date = #{businessDate,jdbcType=VARCHAR},
+      time_no = #{timeNo,jdbcType=INTEGER},
+      business_total = #{businessTotal,jdbcType=INTEGER},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      edittime = #{edittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sttri.dao.UserCarMapper" >
+  <resultMap id="BaseResultMap" type="com.sttri.entity.UserCar" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="car_no" property="carNo" jdbcType="VARCHAR" />
+    <result column="car_brand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="car_models" property="carModels" jdbcType="VARCHAR" />
+    <result column="car_vin" property="carVin" jdbcType="VARCHAR" />
+    <result column="car_engine" property="carEngine" jdbcType="VARCHAR" />
+    <result column="car_buy_time" property="carBuyTime" jdbcType="VARCHAR" />
+    <result column="car_last_maintenance_time" property="carLastMaintenanceTime" jdbcType="VARCHAR" />
+    <result column="car_last_maintenance_mileage" property="carLastMaintenanceMileage" jdbcType="VARCHAR" />
+    <result column="car_insurance_time" property="carInsuranceTime" jdbcType="VARCHAR" />
+    <result column="car_next_maintenance_time" property="carNextMaintenanceTime" jdbcType="VARCHAR" />
+    <result column="car_next_maintenance_mileage" property="carNextMaintenanceMileage" jdbcType="VARCHAR" />
+    <result column="car_annual_time" property="carAnnualTime" jdbcType="VARCHAR" />
+    <result column="car_illegal" property="carIllegal" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, car_no, car_brand, car_models, car_vin, car_engine, car_buy_time, car_last_maintenance_time, 
+    car_last_maintenance_mileage, car_insurance_time, car_next_maintenance_time, car_next_maintenance_mileage, 
+    car_annual_time, car_illegal, addtime, edittime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.UserCarCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_car
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_car
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_car
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sttri.entity.UserCarCriteria" >
+    delete from user_car
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sttri.entity.UserCar" >
+    insert into user_car (id, user_id, car_no, 
+      car_brand, car_models, car_vin, 
+      car_engine, car_buy_time, car_last_maintenance_time, 
+      car_last_maintenance_mileage, car_insurance_time, 
+      car_next_maintenance_time, car_next_maintenance_mileage, 
+      car_annual_time, car_illegal, addtime, 
+      edittime)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{carNo,jdbcType=VARCHAR}, 
+      #{carBrand,jdbcType=VARCHAR}, #{carModels,jdbcType=VARCHAR}, #{carVin,jdbcType=VARCHAR}, 
+      #{carEngine,jdbcType=VARCHAR}, #{carBuyTime,jdbcType=VARCHAR}, #{carLastMaintenanceTime,jdbcType=VARCHAR}, 
+      #{carLastMaintenanceMileage,jdbcType=VARCHAR}, #{carInsuranceTime,jdbcType=VARCHAR}, 
+      #{carNextMaintenanceTime,jdbcType=VARCHAR}, #{carNextMaintenanceMileage,jdbcType=VARCHAR}, 
+      #{carAnnualTime,jdbcType=VARCHAR}, #{carIllegal,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{edittime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sttri.entity.UserCar" >
+    insert into user_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="carNo != null" >
+        car_no,
+      </if>
+      <if test="carBrand != null" >
+        car_brand,
+      </if>
+      <if test="carModels != null" >
+        car_models,
+      </if>
+      <if test="carVin != null" >
+        car_vin,
+      </if>
+      <if test="carEngine != null" >
+        car_engine,
+      </if>
+      <if test="carBuyTime != null" >
+        car_buy_time,
+      </if>
+      <if test="carLastMaintenanceTime != null" >
+        car_last_maintenance_time,
+      </if>
+      <if test="carLastMaintenanceMileage != null" >
+        car_last_maintenance_mileage,
+      </if>
+      <if test="carInsuranceTime != null" >
+        car_insurance_time,
+      </if>
+      <if test="carNextMaintenanceTime != null" >
+        car_next_maintenance_time,
+      </if>
+      <if test="carNextMaintenanceMileage != null" >
+        car_next_maintenance_mileage,
+      </if>
+      <if test="carAnnualTime != null" >
+        car_annual_time,
+      </if>
+      <if test="carIllegal != null" >
+        car_illegal,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="edittime != null" >
+        edittime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="carNo != null" >
+        #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrand != null" >
+        #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModels != null" >
+        #{carModels,jdbcType=VARCHAR},
+      </if>
+      <if test="carVin != null" >
+        #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="carEngine != null" >
+        #{carEngine,jdbcType=VARCHAR},
+      </if>
+      <if test="carBuyTime != null" >
+        #{carBuyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carLastMaintenanceTime != null" >
+        #{carLastMaintenanceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carLastMaintenanceMileage != null" >
+        #{carLastMaintenanceMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="carInsuranceTime != null" >
+        #{carInsuranceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carNextMaintenanceTime != null" >
+        #{carNextMaintenanceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carNextMaintenanceMileage != null" >
+        #{carNextMaintenanceMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="carAnnualTime != null" >
+        #{carAnnualTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carIllegal != null" >
+        #{carIllegal,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sttri.entity.UserCarCriteria" resultType="java.lang.Integer" >
+    select count(*) from user_car
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_car
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.carNo != null" >
+        car_no = #{record.carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carBrand != null" >
+        car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carModels != null" >
+        car_models = #{record.carModels,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carVin != null" >
+        car_vin = #{record.carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carEngine != null" >
+        car_engine = #{record.carEngine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carBuyTime != null" >
+        car_buy_time = #{record.carBuyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carLastMaintenanceTime != null" >
+        car_last_maintenance_time = #{record.carLastMaintenanceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carLastMaintenanceMileage != null" >
+        car_last_maintenance_mileage = #{record.carLastMaintenanceMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carInsuranceTime != null" >
+        car_insurance_time = #{record.carInsuranceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carNextMaintenanceTime != null" >
+        car_next_maintenance_time = #{record.carNextMaintenanceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carNextMaintenanceMileage != null" >
+        car_next_maintenance_mileage = #{record.carNextMaintenanceMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carAnnualTime != null" >
+        car_annual_time = #{record.carAnnualTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carIllegal != null" >
+        car_illegal = #{record.carIllegal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.edittime != null" >
+        edittime = #{record.edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_car
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      car_no = #{record.carNo,jdbcType=VARCHAR},
+      car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      car_models = #{record.carModels,jdbcType=VARCHAR},
+      car_vin = #{record.carVin,jdbcType=VARCHAR},
+      car_engine = #{record.carEngine,jdbcType=VARCHAR},
+      car_buy_time = #{record.carBuyTime,jdbcType=VARCHAR},
+      car_last_maintenance_time = #{record.carLastMaintenanceTime,jdbcType=VARCHAR},
+      car_last_maintenance_mileage = #{record.carLastMaintenanceMileage,jdbcType=VARCHAR},
+      car_insurance_time = #{record.carInsuranceTime,jdbcType=VARCHAR},
+      car_next_maintenance_time = #{record.carNextMaintenanceTime,jdbcType=VARCHAR},
+      car_next_maintenance_mileage = #{record.carNextMaintenanceMileage,jdbcType=VARCHAR},
+      car_annual_time = #{record.carAnnualTime,jdbcType=VARCHAR},
+      car_illegal = #{record.carIllegal,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=TIMESTAMP},
+      edittime = #{record.edittime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sttri.entity.UserCar" >
+    update user_car
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="carNo != null" >
+        car_no = #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrand != null" >
+        car_brand = #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModels != null" >
+        car_models = #{carModels,jdbcType=VARCHAR},
+      </if>
+      <if test="carVin != null" >
+        car_vin = #{carVin,jdbcType=VARCHAR},
+      </if>
+      <if test="carEngine != null" >
+        car_engine = #{carEngine,jdbcType=VARCHAR},
+      </if>
+      <if test="carBuyTime != null" >
+        car_buy_time = #{carBuyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carLastMaintenanceTime != null" >
+        car_last_maintenance_time = #{carLastMaintenanceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carLastMaintenanceMileage != null" >
+        car_last_maintenance_mileage = #{carLastMaintenanceMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="carInsuranceTime != null" >
+        car_insurance_time = #{carInsuranceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carNextMaintenanceTime != null" >
+        car_next_maintenance_time = #{carNextMaintenanceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carNextMaintenanceMileage != null" >
+        car_next_maintenance_mileage = #{carNextMaintenanceMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="carAnnualTime != null" >
+        car_annual_time = #{carAnnualTime,jdbcType=VARCHAR},
+      </if>
+      <if test="carIllegal != null" >
+        car_illegal = #{carIllegal,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        edittime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sttri.entity.UserCar" >
+    update user_car
+    set user_id = #{userId,jdbcType=INTEGER},
+      car_no = #{carNo,jdbcType=VARCHAR},
+      car_brand = #{carBrand,jdbcType=VARCHAR},
+      car_models = #{carModels,jdbcType=VARCHAR},
+      car_vin = #{carVin,jdbcType=VARCHAR},
+      car_engine = #{carEngine,jdbcType=VARCHAR},
+      car_buy_time = #{carBuyTime,jdbcType=VARCHAR},
+      car_last_maintenance_time = #{carLastMaintenanceTime,jdbcType=VARCHAR},
+      car_last_maintenance_mileage = #{carLastMaintenanceMileage,jdbcType=VARCHAR},
+      car_insurance_time = #{carInsuranceTime,jdbcType=VARCHAR},
+      car_next_maintenance_time = #{carNextMaintenanceTime,jdbcType=VARCHAR},
+      car_next_maintenance_mileage = #{carNextMaintenanceMileage,jdbcType=VARCHAR},
+      car_annual_time = #{carAnnualTime,jdbcType=VARCHAR},
+      car_illegal = #{carIllegal,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=TIMESTAMP},
+      edittime = #{edittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

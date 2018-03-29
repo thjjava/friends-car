@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sttri.dao.SysOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.sttri.entity.SysOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="appointment_id" property="appointmentId" jdbcType="INTEGER" />
+    <result column="business_type" property="businessType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="car_no" property="carNo" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="INTEGER" />
+    <result column="order_time" property="orderTime" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="VARCHAR" />
+    <result column="order_fee" property="orderFee" jdbcType="DECIMAL" />
+    <result column="service_employee" property="serviceEmployee" jdbcType="VARCHAR" />
+    <result column="service_pic1" property="servicePic1" jdbcType="VARCHAR" />
+    <result column="service_pic2" property="servicePic2" jdbcType="VARCHAR" />
+    <result column="service_pic3" property="servicePic3" jdbcType="VARCHAR" />
+    <result column="service_pic4" property="servicePic4" jdbcType="VARCHAR" />
+    <result column="service_content" property="serviceContent" jdbcType="VARCHAR" />
+    <result column="service_suggest" property="serviceSuggest" jdbcType="VARCHAR" />
+    <result column="service_ensure" property="serviceEnsure" jdbcType="VARCHAR" />
+    <result column="car_current_mileage" property="carCurrentMileage" jdbcType="VARCHAR" />
+    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="order_create" property="orderCreate" jdbcType="TIMESTAMP" />
+    <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_no, shop_id, appointment_id, business_type, status, user_id, car_no, order_source, 
+    order_time, pay_time, order_fee, service_employee, service_pic1, service_pic2, service_pic3, 
+    service_pic4, service_content, service_suggest, service_ensure, car_current_mileage, 
+    pay_status, amount, remark, order_create, edittime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysOrderCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sttri.entity.SysOrderCriteria" >
+    delete from sys_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sttri.entity.SysOrder" >
+    insert into sys_order (id, order_no, shop_id, 
+      appointment_id, business_type, status, 
+      user_id, car_no, order_source, 
+      order_time, pay_time, order_fee, 
+      service_employee, service_pic1, service_pic2, 
+      service_pic3, service_pic4, service_content, 
+      service_suggest, service_ensure, car_current_mileage, 
+      pay_status, amount, remark, 
+      order_create, edittime)
+    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}, 
+      #{appointmentId,jdbcType=INTEGER}, #{businessType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{carNo,jdbcType=VARCHAR}, #{orderSource,jdbcType=INTEGER}, 
+      #{orderTime,jdbcType=VARCHAR}, #{payTime,jdbcType=VARCHAR}, #{orderFee,jdbcType=DECIMAL}, 
+      #{serviceEmployee,jdbcType=VARCHAR}, #{servicePic1,jdbcType=VARCHAR}, #{servicePic2,jdbcType=VARCHAR}, 
+      #{servicePic3,jdbcType=VARCHAR}, #{servicePic4,jdbcType=VARCHAR}, #{serviceContent,jdbcType=VARCHAR}, 
+      #{serviceSuggest,jdbcType=VARCHAR}, #{serviceEnsure,jdbcType=VARCHAR}, #{carCurrentMileage,jdbcType=VARCHAR}, 
+      #{payStatus,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{orderCreate,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sttri.entity.SysOrder" >
+    insert into sys_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="appointmentId != null" >
+        appointment_id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="carNo != null" >
+        car_no,
+      </if>
+      <if test="orderSource != null" >
+        order_source,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="orderFee != null" >
+        order_fee,
+      </if>
+      <if test="serviceEmployee != null" >
+        service_employee,
+      </if>
+      <if test="servicePic1 != null" >
+        service_pic1,
+      </if>
+      <if test="servicePic2 != null" >
+        service_pic2,
+      </if>
+      <if test="servicePic3 != null" >
+        service_pic3,
+      </if>
+      <if test="servicePic4 != null" >
+        service_pic4,
+      </if>
+      <if test="serviceContent != null" >
+        service_content,
+      </if>
+      <if test="serviceSuggest != null" >
+        service_suggest,
+      </if>
+      <if test="serviceEnsure != null" >
+        service_ensure,
+      </if>
+      <if test="carCurrentMileage != null" >
+        car_current_mileage,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="orderCreate != null" >
+        order_create,
+      </if>
+      <if test="edittime != null" >
+        edittime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="appointmentId != null" >
+        #{appointmentId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="carNo != null" >
+        #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        #{orderSource,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFee != null" >
+        #{orderFee,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceEmployee != null" >
+        #{serviceEmployee,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic1 != null" >
+        #{servicePic1,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic2 != null" >
+        #{servicePic2,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic3 != null" >
+        #{servicePic3,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic4 != null" >
+        #{servicePic4,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceContent != null" >
+        #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceSuggest != null" >
+        #{serviceSuggest,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEnsure != null" >
+        #{serviceEnsure,jdbcType=VARCHAR},
+      </if>
+      <if test="carCurrentMileage != null" >
+        #{carCurrentMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCreate != null" >
+        #{orderCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sttri.entity.SysOrderCriteria" resultType="java.lang.Integer" >
+    select count(*) from sys_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.appointmentId != null" >
+        appointment_id = #{record.appointmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.carNo != null" >
+        car_no = #{record.carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSource != null" >
+        order_source = #{record.orderSource,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderTime != null" >
+        order_time = #{record.orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderFee != null" >
+        order_fee = #{record.orderFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.serviceEmployee != null" >
+        service_employee = #{record.serviceEmployee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePic1 != null" >
+        service_pic1 = #{record.servicePic1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePic2 != null" >
+        service_pic2 = #{record.servicePic2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePic3 != null" >
+        service_pic3 = #{record.servicePic3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePic4 != null" >
+        service_pic4 = #{record.servicePic4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceContent != null" >
+        service_content = #{record.serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceSuggest != null" >
+        service_suggest = #{record.serviceSuggest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceEnsure != null" >
+        service_ensure = #{record.serviceEnsure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carCurrentMileage != null" >
+        car_current_mileage = #{record.carCurrentMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatus != null" >
+        pay_status = #{record.payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCreate != null" >
+        order_create = #{record.orderCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.edittime != null" >
+        edittime = #{record.edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_order
+    set id = #{record.id,jdbcType=INTEGER},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      appointment_id = #{record.appointmentId,jdbcType=INTEGER},
+      business_type = #{record.businessType,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      car_no = #{record.carNo,jdbcType=VARCHAR},
+      order_source = #{record.orderSource,jdbcType=INTEGER},
+      order_time = #{record.orderTime,jdbcType=VARCHAR},
+      pay_time = #{record.payTime,jdbcType=VARCHAR},
+      order_fee = #{record.orderFee,jdbcType=DECIMAL},
+      service_employee = #{record.serviceEmployee,jdbcType=VARCHAR},
+      service_pic1 = #{record.servicePic1,jdbcType=VARCHAR},
+      service_pic2 = #{record.servicePic2,jdbcType=VARCHAR},
+      service_pic3 = #{record.servicePic3,jdbcType=VARCHAR},
+      service_pic4 = #{record.servicePic4,jdbcType=VARCHAR},
+      service_content = #{record.serviceContent,jdbcType=VARCHAR},
+      service_suggest = #{record.serviceSuggest,jdbcType=VARCHAR},
+      service_ensure = #{record.serviceEnsure,jdbcType=VARCHAR},
+      car_current_mileage = #{record.carCurrentMileage,jdbcType=VARCHAR},
+      pay_status = #{record.payStatus,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      order_create = #{record.orderCreate,jdbcType=TIMESTAMP},
+      edittime = #{record.edittime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sttri.entity.SysOrder" >
+    update sys_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="appointmentId != null" >
+        appointment_id = #{appointmentId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="carNo != null" >
+        car_no = #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        order_source = #{orderSource,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFee != null" >
+        order_fee = #{orderFee,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceEmployee != null" >
+        service_employee = #{serviceEmployee,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic1 != null" >
+        service_pic1 = #{servicePic1,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic2 != null" >
+        service_pic2 = #{servicePic2,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic3 != null" >
+        service_pic3 = #{servicePic3,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePic4 != null" >
+        service_pic4 = #{servicePic4,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceContent != null" >
+        service_content = #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceSuggest != null" >
+        service_suggest = #{serviceSuggest,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEnsure != null" >
+        service_ensure = #{serviceEnsure,jdbcType=VARCHAR},
+      </if>
+      <if test="carCurrentMileage != null" >
+        car_current_mileage = #{carCurrentMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCreate != null" >
+        order_create = #{orderCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        edittime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sttri.entity.SysOrder" >
+    update sys_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      appointment_id = #{appointmentId,jdbcType=INTEGER},
+      business_type = #{businessType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      car_no = #{carNo,jdbcType=VARCHAR},
+      order_source = #{orderSource,jdbcType=INTEGER},
+      order_time = #{orderTime,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=VARCHAR},
+      order_fee = #{orderFee,jdbcType=DECIMAL},
+      service_employee = #{serviceEmployee,jdbcType=VARCHAR},
+      service_pic1 = #{servicePic1,jdbcType=VARCHAR},
+      service_pic2 = #{servicePic2,jdbcType=VARCHAR},
+      service_pic3 = #{servicePic3,jdbcType=VARCHAR},
+      service_pic4 = #{servicePic4,jdbcType=VARCHAR},
+      service_content = #{serviceContent,jdbcType=VARCHAR},
+      service_suggest = #{serviceSuggest,jdbcType=VARCHAR},
+      service_ensure = #{serviceEnsure,jdbcType=VARCHAR},
+      car_current_mileage = #{carCurrentMileage,jdbcType=VARCHAR},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      order_create = #{orderCreate,jdbcType=TIMESTAMP},
+      edittime = #{edittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="countByStatus"  resultType="java.lang.Integer" >
+    select count(*) from sys_order where user_id=#{0} and status=#{1}
+  </select>
+</mapper>

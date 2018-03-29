@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sttri.dao.SysShopMapper" >
+  <resultMap id="BaseResultMap" type="com.sttri.entity.SysShop" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="shop_no" property="shopNo" jdbcType="VARCHAR" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="business_start_time" property="businessStartTime" jdbcType="VARCHAR" />
+    <result column="business_end_time" property="businessEndTime" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="shop_qrcode" property="shopQrcode" jdbcType="VARCHAR" />
+    <result column="employees_qrcode" property="employeesQrcode" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="DECIMAL" />
+    <result column="picture1" property="picture1" jdbcType="VARCHAR" />
+    <result column="picture2" property="picture2" jdbcType="VARCHAR" />
+    <result column="picture3" property="picture3" jdbcType="VARCHAR" />
+    <result column="picture4" property="picture4" jdbcType="VARCHAR" />
+    <result column="picture5" property="picture5" jdbcType="VARCHAR" />
+    <result column="picture6" property="picture6" jdbcType="VARCHAR" />
+    <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+    <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, shop_no, shop_name, address, business_start_time, business_end_time, contact, 
+    mobile, lat, lon, shop_qrcode, employees_qrcode, score, picture1, picture2, picture3, 
+    picture4, picture5, picture6, register_date, edittime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysShopCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_shop
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_shop
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sttri.entity.SysShopCriteria" >
+    delete from sys_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sttri.entity.SysShop" >
+    insert into sys_shop (id, shop_no, shop_name, 
+      address, business_start_time, business_end_time, 
+      contact, mobile, lat, 
+      lon, shop_qrcode, employees_qrcode, 
+      score, picture1, picture2, 
+      picture3, picture4, picture5, 
+      picture6, register_date, edittime
+      )
+    values (#{id,jdbcType=INTEGER}, #{shopNo,jdbcType=VARCHAR}, #{shopName,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{businessStartTime,jdbcType=VARCHAR}, #{businessEndTime,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{lon,jdbcType=VARCHAR}, #{shopQrcode,jdbcType=VARCHAR}, #{employeesQrcode,jdbcType=VARCHAR}, 
+      #{score,jdbcType=DECIMAL}, #{picture1,jdbcType=VARCHAR}, #{picture2,jdbcType=VARCHAR}, 
+      #{picture3,jdbcType=VARCHAR}, #{picture4,jdbcType=VARCHAR}, #{picture5,jdbcType=VARCHAR}, 
+      #{picture6,jdbcType=VARCHAR}, #{registerDate,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sttri.entity.SysShop" >
+    insert into sys_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shopNo != null" >
+        shop_no,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="businessStartTime != null" >
+        business_start_time,
+      </if>
+      <if test="businessEndTime != null" >
+        business_end_time,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lon != null" >
+        lon,
+      </if>
+      <if test="shopQrcode != null" >
+        shop_qrcode,
+      </if>
+      <if test="employeesQrcode != null" >
+        employees_qrcode,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="picture1 != null" >
+        picture1,
+      </if>
+      <if test="picture2 != null" >
+        picture2,
+      </if>
+      <if test="picture3 != null" >
+        picture3,
+      </if>
+      <if test="picture4 != null" >
+        picture4,
+      </if>
+      <if test="picture5 != null" >
+        picture5,
+      </if>
+      <if test="picture6 != null" >
+        picture6,
+      </if>
+      <if test="registerDate != null" >
+        register_date,
+      </if>
+      <if test="edittime != null" >
+        edittime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shopNo != null" >
+        #{shopNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="businessStartTime != null" >
+        #{businessStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="businessEndTime != null" >
+        #{businessEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="shopQrcode != null" >
+        #{shopQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeesQrcode != null" >
+        #{employeesQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="picture1 != null" >
+        #{picture1,jdbcType=VARCHAR},
+      </if>
+      <if test="picture2 != null" >
+        #{picture2,jdbcType=VARCHAR},
+      </if>
+      <if test="picture3 != null" >
+        #{picture3,jdbcType=VARCHAR},
+      </if>
+      <if test="picture4 != null" >
+        #{picture4,jdbcType=VARCHAR},
+      </if>
+      <if test="picture5 != null" >
+        #{picture5,jdbcType=VARCHAR},
+      </if>
+      <if test="picture6 != null" >
+        #{picture6,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null" >
+        #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sttri.entity.SysShopCriteria" resultType="java.lang.Integer" >
+    select count(*) from sys_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_shop
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopNo != null" >
+        shop_no = #{record.shopNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopName != null" >
+        shop_name = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessStartTime != null" >
+        business_start_time = #{record.businessStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessEndTime != null" >
+        business_end_time = #{record.businessEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null" >
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lon != null" >
+        lon = #{record.lon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopQrcode != null" >
+        shop_qrcode = #{record.shopQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeesQrcode != null" >
+        employees_qrcode = #{record.employeesQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=DECIMAL},
+      </if>
+      <if test="record.picture1 != null" >
+        picture1 = #{record.picture1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture2 != null" >
+        picture2 = #{record.picture2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture3 != null" >
+        picture3 = #{record.picture3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture4 != null" >
+        picture4 = #{record.picture4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture5 != null" >
+        picture5 = #{record.picture5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture6 != null" >
+        picture6 = #{record.picture6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerDate != null" >
+        register_date = #{record.registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.edittime != null" >
+        edittime = #{record.edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_shop
+    set id = #{record.id,jdbcType=INTEGER},
+      shop_no = #{record.shopNo,jdbcType=VARCHAR},
+      shop_name = #{record.shopName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      business_start_time = #{record.businessStartTime,jdbcType=VARCHAR},
+      business_end_time = #{record.businessEndTime,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      lon = #{record.lon,jdbcType=VARCHAR},
+      shop_qrcode = #{record.shopQrcode,jdbcType=VARCHAR},
+      employees_qrcode = #{record.employeesQrcode,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=DECIMAL},
+      picture1 = #{record.picture1,jdbcType=VARCHAR},
+      picture2 = #{record.picture2,jdbcType=VARCHAR},
+      picture3 = #{record.picture3,jdbcType=VARCHAR},
+      picture4 = #{record.picture4,jdbcType=VARCHAR},
+      picture5 = #{record.picture5,jdbcType=VARCHAR},
+      picture6 = #{record.picture6,jdbcType=VARCHAR},
+      register_date = #{record.registerDate,jdbcType=TIMESTAMP},
+      edittime = #{record.edittime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sttri.entity.SysShop" >
+    update sys_shop
+    <set >
+      <if test="shopNo != null" >
+        shop_no = #{shopNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="businessStartTime != null" >
+        business_start_time = #{businessStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="businessEndTime != null" >
+        business_end_time = #{businessEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="shopQrcode != null" >
+        shop_qrcode = #{shopQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeesQrcode != null" >
+        employees_qrcode = #{employeesQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="picture1 != null" >
+        picture1 = #{picture1,jdbcType=VARCHAR},
+      </if>
+      <if test="picture2 != null" >
+        picture2 = #{picture2,jdbcType=VARCHAR},
+      </if>
+      <if test="picture3 != null" >
+        picture3 = #{picture3,jdbcType=VARCHAR},
+      </if>
+      <if test="picture4 != null" >
+        picture4 = #{picture4,jdbcType=VARCHAR},
+      </if>
+      <if test="picture5 != null" >
+        picture5 = #{picture5,jdbcType=VARCHAR},
+      </if>
+      <if test="picture6 != null" >
+        picture6 = #{picture6,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null" >
+        register_date = #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edittime != null" >
+        edittime = #{edittime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sttri.entity.SysShop" >
+    update sys_shop
+    set shop_no = #{shopNo,jdbcType=VARCHAR},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      business_start_time = #{businessStartTime,jdbcType=VARCHAR},
+      business_end_time = #{businessEndTime,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      lon = #{lon,jdbcType=VARCHAR},
+      shop_qrcode = #{shopQrcode,jdbcType=VARCHAR},
+      employees_qrcode = #{employeesQrcode,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DECIMAL},
+      picture1 = #{picture1,jdbcType=VARCHAR},
+      picture2 = #{picture2,jdbcType=VARCHAR},
+      picture3 = #{picture3,jdbcType=VARCHAR},
+      picture4 = #{picture4,jdbcType=VARCHAR},
+      picture5 = #{picture5,jdbcType=VARCHAR},
+      picture6 = #{picture6,jdbcType=VARCHAR},
+      register_date = #{registerDate,jdbcType=TIMESTAMP},
+      edittime = #{edittime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryShopByBusinessType" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    s.*
+    from sys_shop s left join shop_business b on b.shop_id = s.id
+    where b.business_type = #{b.business_type,jdbcType=INTEGER}
+  </select>
+</mapper>
