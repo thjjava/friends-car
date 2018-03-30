@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sttri.entity.SysOrderCriteria;
@@ -42,8 +43,13 @@ public class UserController extends BaseController{
 	private IUserCarService userCarService;
 
 
-	@RequestMapping("/save")
-	public R Savepoint(@RequestBody SysUser user){
+	/**
+	 * 添加用户
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	public R save(@RequestBody SysUser user){
 		if (StringUtils.isEmpty(user.getWxid())) {
 			return R.error("1004", "微信ID不能为空");
 		}

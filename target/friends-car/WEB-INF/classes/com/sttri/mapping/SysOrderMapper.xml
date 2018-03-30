@@ -8,6 +8,7 @@
     <result column="appointment_id" property="appointmentId" jdbcType="INTEGER" />
     <result column="business_type" property="businessType" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_comment" property="isComment" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="car_no" property="carNo" jdbcType="VARCHAR" />
     <result column="order_source" property="orderSource" jdbcType="INTEGER" />
@@ -88,10 +89,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, order_no, shop_id, appointment_id, business_type, status, user_id, car_no, order_source, 
-    order_time, pay_time, order_fee, service_employee, service_pic1, service_pic2, service_pic3, 
-    service_pic4, service_content, service_suggest, service_ensure, car_current_mileage, 
-    pay_status, amount, remark, order_create, edittime
+    id, order_no, shop_id, appointment_id, business_type, status, is_comment, user_id, 
+    car_no, order_source, order_time, pay_time, order_fee, service_employee, service_pic1, 
+    service_pic2, service_pic3, service_pic4, service_content, service_suggest, service_ensure, 
+    car_current_mileage, pay_status, amount, remark, order_create, edittime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysOrderCriteria" >
     select
@@ -129,22 +130,24 @@
   <insert id="insert" parameterType="com.sttri.entity.SysOrder" >
     insert into sys_order (id, order_no, shop_id, 
       appointment_id, business_type, status, 
-      user_id, car_no, order_source, 
-      order_time, pay_time, order_fee, 
-      service_employee, service_pic1, service_pic2, 
-      service_pic3, service_pic4, service_content, 
-      service_suggest, service_ensure, car_current_mileage, 
-      pay_status, amount, remark, 
-      order_create, edittime)
+      is_comment, user_id, car_no, 
+      order_source, order_time, pay_time, 
+      order_fee, service_employee, service_pic1, 
+      service_pic2, service_pic3, service_pic4, 
+      service_content, service_suggest, service_ensure, 
+      car_current_mileage, pay_status, amount, 
+      remark, order_create, edittime
+      )
     values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}, 
       #{appointmentId,jdbcType=INTEGER}, #{businessType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{carNo,jdbcType=VARCHAR}, #{orderSource,jdbcType=INTEGER}, 
-      #{orderTime,jdbcType=VARCHAR}, #{payTime,jdbcType=VARCHAR}, #{orderFee,jdbcType=DECIMAL}, 
-      #{serviceEmployee,jdbcType=VARCHAR}, #{servicePic1,jdbcType=VARCHAR}, #{servicePic2,jdbcType=VARCHAR}, 
-      #{servicePic3,jdbcType=VARCHAR}, #{servicePic4,jdbcType=VARCHAR}, #{serviceContent,jdbcType=VARCHAR}, 
-      #{serviceSuggest,jdbcType=VARCHAR}, #{serviceEnsure,jdbcType=VARCHAR}, #{carCurrentMileage,jdbcType=VARCHAR}, 
-      #{payStatus,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
-      #{orderCreate,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP})
+      #{isComment,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{carNo,jdbcType=VARCHAR}, 
+      #{orderSource,jdbcType=INTEGER}, #{orderTime,jdbcType=VARCHAR}, #{payTime,jdbcType=VARCHAR}, 
+      #{orderFee,jdbcType=DECIMAL}, #{serviceEmployee,jdbcType=VARCHAR}, #{servicePic1,jdbcType=VARCHAR}, 
+      #{servicePic2,jdbcType=VARCHAR}, #{servicePic3,jdbcType=VARCHAR}, #{servicePic4,jdbcType=VARCHAR}, 
+      #{serviceContent,jdbcType=VARCHAR}, #{serviceSuggest,jdbcType=VARCHAR}, #{serviceEnsure,jdbcType=VARCHAR}, 
+      #{carCurrentMileage,jdbcType=VARCHAR}, #{payStatus,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{orderCreate,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sttri.entity.SysOrder" >
     insert into sys_order
@@ -166,6 +169,9 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="isComment != null" >
+        is_comment,
       </if>
       <if test="userId != null" >
         user_id,
@@ -246,6 +252,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isComment != null" >
+        #{isComment,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
@@ -336,6 +345,9 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.isComment != null" >
+        is_comment = #{record.isComment,jdbcType=INTEGER},
+      </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
@@ -409,6 +421,7 @@
       appointment_id = #{record.appointmentId,jdbcType=INTEGER},
       business_type = #{record.businessType,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
+      is_comment = #{record.isComment,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       car_no = #{record.carNo,jdbcType=VARCHAR},
       order_source = #{record.orderSource,jdbcType=INTEGER},
@@ -450,6 +463,9 @@
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isComment != null" >
+        is_comment = #{isComment,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
@@ -521,6 +537,7 @@
       appointment_id = #{appointmentId,jdbcType=INTEGER},
       business_type = #{businessType,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
+      is_comment = #{isComment,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       car_no = #{carNo,jdbcType=VARCHAR},
       order_source = #{orderSource,jdbcType=INTEGER},
@@ -545,6 +562,6 @@
   </update>
   
   <select id="countByStatus"  resultType="java.lang.Integer" >
-    select count(*) from sys_order where user_id=#{0} and status=#{1}
+    select count(*) from sys_order where user_id=#{user_id,jdbcType=INTEGER} and status=#{status,jdbcType=INTEGER}
   </select>
 </mapper>

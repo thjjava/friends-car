@@ -32,6 +32,7 @@ D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\SysCarCrite
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\OrderComment.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\service\IOrderCommentService.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\dao\UserCarMapper.java
+D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\enums\OrderIsCommentEnum.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\SysOrderCriteria.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\dao\SysOrderMapper.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\utils\JacksonUtil.java

@@ -43,7 +43,7 @@ public class UserCarController extends BaseController {
 		}
 	}
 	
-	@RequestMapping("/sys/update")
+	@RequestMapping("/update")
 	public R update(@RequestBody UserCar userCar){
 		if (StringUtils.isEmpty(userCar.getCarNo())) {
 			return R.error("5001", "车牌号不能为空");

@@ -9,6 +9,7 @@
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="love_mot" property="loveMot" jdbcType="INTEGER" />
     <result column="love_insurance" property="loveInsurance" jdbcType="INTEGER" />
     <result column="love_maintain" property="loveMaintain" jdbcType="INTEGER" />
@@ -75,7 +76,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, wxid, nickname, sex, city, mobile, type, love_mot, love_insurance, love_maintain, 
+    id, wxid, nickname, sex, city, mobile, type, status, love_mot, love_insurance, love_maintain, 
     remark, addtime, edittime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysUserCriteria" >
@@ -114,14 +115,14 @@
   <insert id="insert" parameterType="com.sttri.entity.SysUser" >
     insert into sys_user (id, wxid, nickname, 
       sex, city, mobile, 
-      type, love_mot, love_insurance, 
-      love_maintain, remark, addtime, 
-      edittime)
+      type, status, love_mot, 
+      love_insurance, love_maintain, remark, 
+      addtime, edittime)
     values (#{id,jdbcType=INTEGER}, #{wxid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{sex,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{loveMot,jdbcType=INTEGER}, #{loveInsurance,jdbcType=INTEGER}, 
-      #{loveMaintain,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
-      #{edittime,jdbcType=TIMESTAMP})
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{loveMot,jdbcType=INTEGER}, 
+      #{loveInsurance,jdbcType=INTEGER}, #{loveMaintain,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sttri.entity.SysUser" >
     insert into sys_user
@@ -146,6 +147,9 @@
       </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
       <if test="loveMot != null" >
         love_mot,
@@ -187,6 +191,9 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="loveMot != null" >
         #{loveMot,jdbcType=INTEGER},
@@ -238,6 +245,9 @@
       <if test="record.type != null" >
         type = #{record.type,jdbcType=VARCHAR},
       </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
       <if test="record.loveMot != null" >
         love_mot = #{record.loveMot,jdbcType=INTEGER},
       </if>
@@ -270,6 +280,7 @@
       city = #{record.city,jdbcType=VARCHAR},
       mobile = #{record.mobile,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
       love_mot = #{record.loveMot,jdbcType=INTEGER},
       love_insurance = #{record.loveInsurance,jdbcType=INTEGER},
       love_maintain = #{record.loveMaintain,jdbcType=INTEGER},
@@ -301,6 +312,9 @@
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="loveMot != null" >
         love_mot = #{loveMot,jdbcType=INTEGER},
       </if>
@@ -330,6 +344,7 @@
       city = #{city,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       love_mot = #{loveMot,jdbcType=INTEGER},
       love_insurance = #{loveInsurance,jdbcType=INTEGER},
       love_maintain = #{loveMaintain,jdbcType=INTEGER},

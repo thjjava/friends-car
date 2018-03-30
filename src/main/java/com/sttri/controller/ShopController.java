@@ -118,6 +118,7 @@ public class ShopController extends BaseController {
 		Criteria criteria = example.createCriteria();
 		criteria.andShopIdEqualTo(shopId);
 		List<OrderComment> ocList = this.orderCommentService.selectByExample(example);
+		System.out.println("shop_comments:"+ocList.toString());
 		return R.ok("查询成功").put("shop", shop).put("shop_comments", ocList);
 	}
 	

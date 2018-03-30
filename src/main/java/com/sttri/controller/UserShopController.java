@@ -28,7 +28,7 @@ public class UserShopController extends BaseController {
 	 * @param userId
 	 * @param shopId
 	 * @return
-	 * http://plat.youlincar.com/friends-car/sys/user?userId=1&shopId=1
+	 * http://plat.youlincar.com/friends-car/sys/usershop/bindShop?userId=1&shopId=1
 	 */
 	@RequestMapping("/bindShop")
 	public R bindShop(@RequestParam(required=true) int userId,@RequestParam(required=true) int shopId){
