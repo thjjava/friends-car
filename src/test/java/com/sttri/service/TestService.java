@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import sun.tools.tree.ThisExpression;
+
 import com.sttri.entity.SysBusiness;
 import com.sttri.entity.SysBusinessCriteria;
 import com.sttri.entity.SysOrderCriteria;
@@ -20,6 +22,7 @@ import com.sttri.entity.SysShopCriteria;
 import com.sttri.entity.SysUser;
 import com.sttri.entity.UserCar;
 import com.sttri.entity.UserCarCriteria;
+import com.sttri.entity.UserShop;
 import com.sttri.enums.OrderIsCommentEnum;
 import com.sttri.enums.OrderStatusEnum;
 import com.sttri.service.ISysShopService;
@@ -42,6 +45,8 @@ public class TestService {
 	private IOrderCommentService orderCommentService;
 	@Autowired
 	private IUserCarService userCarService;
+	@Autowired
+	private IUserShopService userShopService;
 	
 /*	@Test
 	public void addShop(){
@@ -99,11 +104,35 @@ public class TestService {
 		System.out.println(not_comment_orders);
 	}*/
 	
-	@Test
+	/*@Test
 	public void queryBusinessType(){
 		SysBusinessCriteria example = new SysBusinessCriteria();
 		example.setOrderByClause("type asc");
 		List<SysBusiness> businesses = this.sysBusinessService.selectByExample(example);
 		System.out.println(businesses);
+	}*/
+	
+/*	@Test
+	public void bindShop(){
+		SysUser user = this.sysUserService.selectByPrimaryKey(1);
+		System.out.println("1="+user);
+		SysShop shop = this.sysShopService.selectByPrimaryKey(2);
+		UserShop userShop = new UserShop();
+		userShop.setUserId(1);
+		userShop.setShopId(2);
+		userShop.setStatus(0);
+		userShop.setType("N");
+		userShop.setAttentionTime(new Date());
+		this.userShopService.insert(userShop);
+		user.setLabel(shop.getShopNo()+"-"+user.getNickname());
+		user.setType("N");
+		user.setEdittime(new Date());
+		this.sysUserService.updateByPrimaryKeySelective(user);
+		System.out.println("2="+user);
+	}*/
+	
+	@Test
+	public void queryMaxShopNo(){
+		System.out.println(sysShopService.findMaxShopNo());
 	}
 }

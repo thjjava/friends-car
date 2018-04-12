@@ -33,4 +33,6 @@ public interface ISysShopService {
 	public int updateByPrimaryKey(SysShop record);
 	
 	public List<SysShop> queryShopByBusinessType(Integer businessType);
+	
+	public String findMaxShopNo();
 }

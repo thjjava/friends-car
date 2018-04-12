@@ -31,4 +31,6 @@ public interface SysShopMapper {
     int updateByPrimaryKey(SysShop record);
     
     List<SysShop> queryShopByBusinessType(Integer businessType);
+    
+    String findMaxShopNo();
 }

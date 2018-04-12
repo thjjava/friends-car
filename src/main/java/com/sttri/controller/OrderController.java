@@ -16,6 +16,7 @@ import com.sttri.entity.SysOrderCriteria;
 import com.sttri.service.ISysOrderService;
 import com.sttri.service.ISysUserService;
 import com.sttri.utils.R;
+import com.sttri.utils.Util;
 
 @RestController
 @RequestMapping("/sys/order")
@@ -28,6 +29,8 @@ public class OrderController extends BaseController {
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public R save(@RequestBody SysOrder order){
+		String lastOrderNo = this.sysOrderService.findMaxOrderNo();
+		order.setOrderNo(Util.createOrderNo(lastOrderNo));
 		order.setStatus(0);
 		order.setOrderCreate(new Date());
 		int result = this.sysOrderService.insertSelective(order);

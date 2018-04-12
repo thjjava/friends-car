@@ -564,4 +564,8 @@
   <select id="countByStatus"  resultType="java.lang.Integer" >
     select count(*) from sys_order where user_id=#{user_id,jdbcType=INTEGER} and status=#{status,jdbcType=INTEGER}
   </select>
+  
+  <select id="findMaxOrderNo" resultType="java.lang.String">
+  	select max(order_no) from sys_order
+  </select>
 </mapper>

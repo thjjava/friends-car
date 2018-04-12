@@ -88,4 +88,9 @@ public class SysOrderServiceImpl implements ISysOrderService{
 		// TODO Auto-generated method stub
 		return this.sysOrderMapper.countByStatus(user_id, status);
 	}
+	
+	@Override
+	public String findMaxOrderNo(){
+		return this.sysOrderMapper.findMaxOrderNo();
+	}
 }

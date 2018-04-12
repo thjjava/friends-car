@@ -81,7 +81,13 @@ public class SysShopServiceImpl implements ISysShopService {
 		return sysShopMapper.updateByPrimaryKey(record);
 	}
 	
+	@Override
 	public List<SysShop> queryShopByBusinessType(Integer businessType) {
 		return sysShopMapper.queryShopByBusinessType(businessType);
+	}
+	
+	@Override
+	public String findMaxShopNo(){
+		return sysShopMapper.findMaxShopNo();
 	}
 }

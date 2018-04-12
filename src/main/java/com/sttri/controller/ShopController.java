@@ -30,9 +30,11 @@ import com.sttri.entity.SysBusinessCriteria;
 import com.sttri.entity.SysShop;
 import com.sttri.service.IOrderCommentService;
 import com.sttri.service.IShopBusinessService;
+import com.sttri.service.ISysAreaService;
 import com.sttri.service.ISysBusinessService;
 import com.sttri.service.ISysShopService;
 import com.sttri.utils.R;
+import com.sttri.utils.Util;
 
 /**
  * 店铺
@@ -51,7 +53,8 @@ public class ShopController extends BaseController {
 	private IOrderCommentService orderCommentService;
 	@Autowired
 	private IShopBusinessService shopBusinessService;
-	
+	@Autowired
+	private ISysAreaService sysAreaService;
 	
 	
 	@RequestMapping("/save")
@@ -59,6 +62,10 @@ public class ShopController extends BaseController {
 		if (StringUtils.isEmpty(shop.getShopNo())) {
 			return R.error("2001", "店铺名称不能为空");
 		}
+		String lastShopNo = this.sysShopService.findMaxShopNo();
+		String shopNo = Util.createShopNo("3101", lastShopNo);
+		shop.setShopNo(shopNo);
+		shop.setRegisterDate(new Date());
 		this.sysShopService.insert(shop);
 		return R.ok("添加成功");
 	}

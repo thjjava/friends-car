@@ -31,4 +31,6 @@ public interface SysOrderMapper {
     int updateByPrimaryKey(SysOrder record);
     
     int countByStatus(@Param("user_id") Integer user_id,@Param("status") Integer status);
+    
+    String findMaxOrderNo();
 }

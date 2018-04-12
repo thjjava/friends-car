@@ -28,6 +28,9 @@ public class SysUser implements Serializable {
     //用户状态 0-正式 1-注销
     private Integer status;
 
+    //用户标签
+    private String label;
+
     //是否接收年检推荐 0-否 1-是
     private Integer loveMot;
 
@@ -112,6 +115,14 @@ public class SysUser implements Serializable {
         this.status = status;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label == null ? null : label.trim();
+    }
+
     public Integer getLoveMot() {
         return loveMot;
     }
@@ -174,6 +185,7 @@ public class SysUser implements Serializable {
         sb.append(", mobile=").append(mobile);
         sb.append(", type=").append(type);
         sb.append(", status=").append(status);
+        sb.append(", label=").append(label);
         sb.append(", loveMot=").append(loveMot);
         sb.append(", loveInsurance=").append(loveInsurance);
         sb.append(", loveMaintain=").append(loveMaintain);

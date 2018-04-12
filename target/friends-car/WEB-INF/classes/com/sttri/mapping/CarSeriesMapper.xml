@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sttri.dao.SysCarMapper" >
-  <resultMap id="BaseResultMap" type="com.sttri.entity.SysCar" >
+<mapper namespace="com.sttri.dao.CarSeriesMapper" >
+  <resultMap id="BaseResultMap" type="com.sttri.entity.CarSeries" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="car_brand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="car_brand_id" property="carBrandId" jdbcType="INTEGER" />
     <result column="car_series" property="carSeries" jdbcType="VARCHAR" />
-    <result column="car_models" property="carModels" jdbcType="VARCHAR" />
-    <result column="car_transmission" property="carTransmission" jdbcType="INTEGER" />
-    <result column="car_country" property="carCountry" jdbcType="VARCHAR" />
-    <result column="car_seat" property="carSeat" jdbcType="INTEGER" />
-    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
     <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
     <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -72,16 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, car_brand, car_series, car_models, car_transmission, car_country, car_seat, is_default, 
-    addtime, edittime
+    id, car_brand_id, car_series, addtime, edittime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysCarCriteria" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.CarSeriesCriteria" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sys_car
+    from car_series
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,55 +89,36 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from sys_car
+    from car_series
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sys_car
+    delete from car_series
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.sttri.entity.SysCarCriteria" >
-    delete from sys_car
+  <delete id="deleteByExample" parameterType="com.sttri.entity.CarSeriesCriteria" >
+    delete from car_series
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.sttri.entity.SysCar" >
-    insert into sys_car (id, car_brand, car_series, 
-      car_models, car_transmission, car_country, 
-      car_seat, is_default, addtime, 
-      edittime)
-    values (#{id,jdbcType=INTEGER}, #{carBrand,jdbcType=VARCHAR}, #{carSeries,jdbcType=VARCHAR}, 
-      #{carModels,jdbcType=VARCHAR}, #{carTransmission,jdbcType=INTEGER}, #{carCountry,jdbcType=VARCHAR}, 
-      #{carSeat,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, 
-      #{edittime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.sttri.entity.CarSeries" >
+    insert into car_series (id, car_brand_id, car_series, 
+      addtime, edittime)
+    values (#{id,jdbcType=INTEGER}, #{carBrandId,jdbcType=INTEGER}, #{carSeries,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.sttri.entity.SysCar" >
-    insert into sys_car
+  <insert id="insertSelective" parameterType="com.sttri.entity.CarSeries" >
+    insert into car_series
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="carBrand != null" >
-        car_brand,
+      <if test="carBrandId != null" >
+        car_brand_id,
       </if>
       <if test="carSeries != null" >
         car_series,
-      </if>
-      <if test="carModels != null" >
-        car_models,
-      </if>
-      <if test="carTransmission != null" >
-        car_transmission,
-      </if>
-      <if test="carCountry != null" >
-        car_country,
-      </if>
-      <if test="carSeat != null" >
-        car_seat,
-      </if>
-      <if test="isDefault != null" >
-        is_default,
       </if>
       <if test="addtime != null" >
         addtime,
@@ -156,26 +131,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="carBrand != null" >
-        #{carBrand,jdbcType=VARCHAR},
+      <if test="carBrandId != null" >
+        #{carBrandId,jdbcType=INTEGER},
       </if>
       <if test="carSeries != null" >
         #{carSeries,jdbcType=VARCHAR},
-      </if>
-      <if test="carModels != null" >
-        #{carModels,jdbcType=VARCHAR},
-      </if>
-      <if test="carTransmission != null" >
-        #{carTransmission,jdbcType=INTEGER},
-      </if>
-      <if test="carCountry != null" >
-        #{carCountry,jdbcType=VARCHAR},
-      </if>
-      <if test="carSeat != null" >
-        #{carSeat,jdbcType=INTEGER},
-      </if>
-      <if test="isDefault != null" >
-        #{isDefault,jdbcType=INTEGER},
       </if>
       <if test="addtime != null" >
         #{addtime,jdbcType=TIMESTAMP},
@@ -185,38 +145,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.sttri.entity.SysCarCriteria" resultType="java.lang.Integer" >
-    select count(*) from sys_car
+  <select id="countByExample" parameterType="com.sttri.entity.CarSeriesCriteria" resultType="java.lang.Integer" >
+    select count(*) from car_series
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update sys_car
+    update car_series
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.carBrand != null" >
-        car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      <if test="record.carBrandId != null" >
+        car_brand_id = #{record.carBrandId,jdbcType=INTEGER},
       </if>
       <if test="record.carSeries != null" >
         car_series = #{record.carSeries,jdbcType=VARCHAR},
-      </if>
-      <if test="record.carModels != null" >
-        car_models = #{record.carModels,jdbcType=VARCHAR},
-      </if>
-      <if test="record.carTransmission != null" >
-        car_transmission = #{record.carTransmission,jdbcType=INTEGER},
-      </if>
-      <if test="record.carCountry != null" >
-        car_country = #{record.carCountry,jdbcType=VARCHAR},
-      </if>
-      <if test="record.carSeat != null" >
-        car_seat = #{record.carSeat,jdbcType=INTEGER},
-      </if>
-      <if test="record.isDefault != null" >
-        is_default = #{record.isDefault,jdbcType=INTEGER},
       </if>
       <if test="record.addtime != null" >
         addtime = #{record.addtime,jdbcType=TIMESTAMP},
@@ -230,44 +175,24 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update sys_car
+    update car_series
     set id = #{record.id,jdbcType=INTEGER},
-      car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      car_brand_id = #{record.carBrandId,jdbcType=INTEGER},
       car_series = #{record.carSeries,jdbcType=VARCHAR},
-      car_models = #{record.carModels,jdbcType=VARCHAR},
-      car_transmission = #{record.carTransmission,jdbcType=INTEGER},
-      car_country = #{record.carCountry,jdbcType=VARCHAR},
-      car_seat = #{record.carSeat,jdbcType=INTEGER},
-      is_default = #{record.isDefault,jdbcType=INTEGER},
       addtime = #{record.addtime,jdbcType=TIMESTAMP},
       edittime = #{record.edittime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sttri.entity.SysCar" >
-    update sys_car
+  <update id="updateByPrimaryKeySelective" parameterType="com.sttri.entity.CarSeries" >
+    update car_series
     <set >
-      <if test="carBrand != null" >
-        car_brand = #{carBrand,jdbcType=VARCHAR},
+      <if test="carBrandId != null" >
+        car_brand_id = #{carBrandId,jdbcType=INTEGER},
       </if>
       <if test="carSeries != null" >
         car_series = #{carSeries,jdbcType=VARCHAR},
-      </if>
-      <if test="carModels != null" >
-        car_models = #{carModels,jdbcType=VARCHAR},
-      </if>
-      <if test="carTransmission != null" >
-        car_transmission = #{carTransmission,jdbcType=INTEGER},
-      </if>
-      <if test="carCountry != null" >
-        car_country = #{carCountry,jdbcType=VARCHAR},
-      </if>
-      <if test="carSeat != null" >
-        car_seat = #{carSeat,jdbcType=INTEGER},
-      </if>
-      <if test="isDefault != null" >
-        is_default = #{isDefault,jdbcType=INTEGER},
       </if>
       <if test="addtime != null" >
         addtime = #{addtime,jdbcType=TIMESTAMP},
@@ -278,15 +203,10 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.sttri.entity.SysCar" >
-    update sys_car
-    set car_brand = #{carBrand,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.sttri.entity.CarSeries" >
+    update car_series
+    set car_brand_id = #{carBrandId,jdbcType=INTEGER},
       car_series = #{carSeries,jdbcType=VARCHAR},
-      car_models = #{carModels,jdbcType=VARCHAR},
-      car_transmission = #{carTransmission,jdbcType=INTEGER},
-      car_country = #{carCountry,jdbcType=VARCHAR},
-      car_seat = #{carSeat,jdbcType=INTEGER},
-      is_default = #{isDefault,jdbcType=INTEGER},
       addtime = #{addtime,jdbcType=TIMESTAMP},
       edittime = #{edittime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
