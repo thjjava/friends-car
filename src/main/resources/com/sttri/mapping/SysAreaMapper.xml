@@ -6,7 +6,6 @@
     <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
     <result column="city_name" property="cityName" jdbcType="VARCHAR" />
     <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
-    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, province_name, city_name, area_code, addtime
+    id, province_name, city_name, area_code
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysAreaCriteria" >
     select
@@ -104,9 +103,9 @@
   </delete>
   <insert id="insert" parameterType="com.sttri.entity.SysArea" >
     insert into sys_area (id, province_name, city_name, 
-      area_code, addtime)
+      area_code)
     values (#{id,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
-      #{areaCode,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+      #{areaCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sttri.entity.SysArea" >
     insert into sys_area
@@ -123,9 +122,6 @@
       <if test="areaCode != null" >
         area_code,
       </if>
-      <if test="addtime != null" >
-        addtime,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,9 +135,6 @@
       </if>
       <if test="areaCode != null" >
         #{areaCode,jdbcType=VARCHAR},
-      </if>
-      <if test="addtime != null" >
-        #{addtime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,9 +159,6 @@
       <if test="record.areaCode != null" >
         area_code = #{record.areaCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.addtime != null" >
-        addtime = #{record.addtime,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -179,8 +169,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       province_name = #{record.provinceName,jdbcType=VARCHAR},
       city_name = #{record.cityName,jdbcType=VARCHAR},
-      area_code = #{record.areaCode,jdbcType=VARCHAR},
-      addtime = #{record.addtime,jdbcType=VARCHAR}
+      area_code = #{record.areaCode,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,9 +186,6 @@
       <if test="areaCode != null" >
         area_code = #{areaCode,jdbcType=VARCHAR},
       </if>
-      <if test="addtime != null" >
-        addtime = #{addtime,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -207,8 +193,7 @@
     update sys_area
     set province_name = #{provinceName,jdbcType=VARCHAR},
       city_name = #{cityName,jdbcType=VARCHAR},
-      area_code = #{areaCode,jdbcType=VARCHAR},
-      addtime = #{addtime,jdbcType=VARCHAR}
+      area_code = #{areaCode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

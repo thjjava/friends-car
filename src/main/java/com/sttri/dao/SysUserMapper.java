@@ -27,4 +27,7 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+    
+    //新增接口，根据微信ID获取用户对象
+    SysUser selectByWxId(String wxId);
 }

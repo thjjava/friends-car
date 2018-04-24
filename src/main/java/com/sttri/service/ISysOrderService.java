@@ -30,7 +30,9 @@ public interface ISysOrderService {
 
     int updateByPrimaryKey(SysOrder record);
     
+    //新增接口，根据用户id和订单状态，统计订单数
     int countByStatus(@Param("user_id") Integer user_id,@Param("status") Integer status);
     
+    //新增接口，获取最新订单编号
     String findMaxOrderNo();
 }

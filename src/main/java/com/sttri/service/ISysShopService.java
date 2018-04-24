@@ -32,7 +32,9 @@ public interface ISysShopService {
 
 	public int updateByPrimaryKey(SysShop record);
 	
+	 //新增接口，根据业务类型获取店铺列表
 	public List<SysShop> queryShopByBusinessType(Integer businessType);
 	
+	 //新增接口，获取最新店铺编号
 	public String findMaxShopNo();
 }

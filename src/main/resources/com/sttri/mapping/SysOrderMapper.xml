@@ -561,10 +561,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
+  <!-- 新增接口，根据用户ID和订单状态统计订单数  -->
   <select id="countByStatus"  resultType="java.lang.Integer" >
     select count(*) from sys_order where user_id=#{user_id,jdbcType=INTEGER} and status=#{status,jdbcType=INTEGER}
   </select>
   
+  <!-- 新增接口，获取最新订单编号  -->
   <select id="findMaxOrderNo" resultType="java.lang.String">
   	select max(order_no) from sys_order
   </select>

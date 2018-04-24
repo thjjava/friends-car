@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sttri.entity.SysOrderCriteria;
@@ -77,21 +77,24 @@ public class UserController extends BaseController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/info/{id}")
-	public R getUser(@PathVariable("id") Integer id){
+	@RequestMapping("/info")
+	public R getUser(@RequestParam(required=true) String wxId){
 		//查询用户信息
-		SysUser user = this.sysUserService.selectByPrimaryKey(id);
+		SysUser user = this.sysUserService.selectByWxId(wxId);
+		if (user == null) {
+			return R.error("1000", "该用户不存在");
+		}
 		//查询待付款数
-		int not_pay_orders = this.sysOrderService.countByStatus(id, OrderStatusEnum.FOR_PAYMENT.getType());
+		int not_pay_orders = this.sysOrderService.countByStatus(user.getId(), OrderStatusEnum.FOR_PAYMENT.getType());
 		//查询待服务数
-		int not_service_orders = this.sysOrderService.countByStatus(id, OrderStatusEnum.FOR_SERVICE.getType());
+		int not_service_orders = this.sysOrderService.countByStatus(user.getId(), OrderStatusEnum.FOR_SERVICE.getType());
 		//查询待评价数
 		SysOrderCriteria orderCriteria = new SysOrderCriteria();
 		orderCriteria.createCriteria().andIsCommentEqualTo(OrderIsCommentEnum.NO_COMMENT.getType());
 		int not_comment_orders = this.sysOrderService.countByExample(orderCriteria);
 		//查询用户汽车库
 		UserCarCriteria userCarCriteria = new UserCarCriteria();
-		userCarCriteria.createCriteria().andUserIdEqualTo(id);
+		userCarCriteria.createCriteria().andUserIdEqualTo(user.getId());
 		List<UserCar> uCars = this.userCarService.selectByExample(userCarCriteria);
 		return R.ok().put("user", user)
 					.put("not_pay_orders", not_pay_orders)

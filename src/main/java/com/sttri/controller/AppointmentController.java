@@ -13,13 +13,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sttri.entity.ShopAppointment;
 import com.sttri.entity.ShopAppointmentCriteria;
+import com.sttri.entity.SysUser;
 import com.sttri.entity.ShopAppointmentCriteria.Criteria;
 import com.sttri.entity.SysOrder;
 import com.sttri.enums.OrderStatusEnum;
 import com.sttri.service.IShopAppointmentService;
 import com.sttri.service.ISysOrderService;
+import com.sttri.service.ISysUserService;
 import com.sttri.utils.DateUtils;
 import com.sttri.utils.R;
+import com.sttri.utils.Util;
 
 /**
  * 预约服务接口
@@ -33,6 +36,8 @@ public class AppointmentController extends BaseController {
 	private IShopAppointmentService shopAppointmentService;
 	@Autowired
 	private ISysOrderService sysOrderService;
+	@Autowired
+	private ISysUserService sysUserService;
 	
 	
 	
@@ -85,12 +90,13 @@ public class AppointmentController extends BaseController {
 				.andBusinessTypeEqualTo(businessType);
 		JSONObject obj = null;
 		JSONArray array = new JSONArray();
-		for (int i = 0; i < 15; i++) {
+		for (int i = 1; i <= 15; i++) {
 			String day = DateUtils.plusDays(i);
 			criteria.andBusinessDateEqualTo(day);
 			List<ShopAppointment> list = this.shopAppointmentService.selectByExample(example);
 			obj = new JSONObject();
-			obj.put(day, list.size());
+			String key = "day"+i;
+			obj.put(key, list.size());
 			boolean flag = false;//表示是否预约满
 			if (list != null && list.size()>0) {
 				int total = list.get(0).getBusinessTotal();
@@ -113,10 +119,17 @@ public class AppointmentController extends BaseController {
 	 */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	public R save(@RequestParam(required=true) int shopId,
-			@RequestParam(required=true) int userId,
+			@RequestParam(required=true) String wxId,
 			@RequestParam(required=true) int businessType,
 			@RequestParam(required=true) String businessDate,
 			@RequestParam(required=true) int timeNo ){
+		
+		logger.info("***预约业务_wxId***:"+wxId+"&&shopId="+shopId);
+		SysUser user = this.sysUserService.selectByWxId(wxId);
+		if (user == null) {
+			return R.error("1000", "该用户不存在");
+		}
+		
 		ShopAppointmentCriteria example = new ShopAppointmentCriteria();
 		example.createCriteria().andShopIdEqualTo(shopId)
 								.andBusinessTypeEqualTo(businessType)
@@ -135,10 +148,11 @@ public class AppointmentController extends BaseController {
 		this.shopAppointmentService.insert(shopAppointment);
 		//创建待服务状态的订单
 		SysOrder order = new SysOrder();
-		order.setUserId(userId);
+		order.setUserId(user.getId());
 		order.setShopId(shopId);
 		order.setBusinessType(businessType);
-		order.setOrderNo("111");
+		String lastOrderNo = this.sysOrderService.findMaxOrderNo();
+		order.setOrderNo(Util.createOrderNo(lastOrderNo));
 		order.setOrderSource(1);
 		order.setOrderTime(businessDate);
 		order.setStatus(OrderStatusEnum.FOR_SERVICE.getType());

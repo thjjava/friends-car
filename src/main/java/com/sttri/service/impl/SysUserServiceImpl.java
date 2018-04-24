@@ -81,4 +81,17 @@ public class SysUserServiceImpl implements ISysUserService{
 		// TODO Auto-generated method stub
 		return this.sysUserMapper.updateByPrimaryKey(record);
 	}
+
+	@Override
+	public SysUser selectByWxId(String wxId) {
+		// TODO Auto-generated method stub
+		SysUserCriteria example = new SysUserCriteria();
+		example.createCriteria()
+				.andWxidEqualTo(wxId);
+		List<SysUser> list = selectByExample(example);
+		if (list != null && list.size() >0 ) {
+			return list.get(0);
+		}
+		return null;
+	}
 }

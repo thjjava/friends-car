@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sttri.entity.SysOrder;
 import com.sttri.entity.SysOrderCriteria;
+import com.sttri.entity.SysUser;
 import com.sttri.service.ISysOrderService;
 import com.sttri.service.ISysUserService;
 import com.sttri.utils.R;
@@ -42,16 +43,20 @@ public class OrderController extends BaseController {
 	}
 	
 	/**
-	 * 根据用户Id查询所有的订单，根据创建日期倒序查询
-	 * @param userId
+	 * 根据用户微信Id查询所有的订单，根据创建日期倒序查询
+	 * @param wxId
 	 * @return
 	 */
 	@RequestMapping("/queryUserOrders")
-	public R queryUserOrders(@RequestParam(required=true) Integer userId){
-		logger.info("**queryUserOrders**:"+userId);
+	public R queryUserOrders(@RequestParam(required=true) String wxId){
+		logger.info("**queryUserOrders**:"+wxId);
+		SysUser user = this.sysUserService.selectByWxId(wxId);
+		if (user == null) {
+			return R.error("1000", "该用户不存在");
+		}
 		SysOrderCriteria example = new SysOrderCriteria();
 		example.setOrderByClause("orderCreate desc");
-		example.createCriteria().andUserIdEqualTo(userId);
+		example.createCriteria().andUserIdEqualTo(user.getId());
 		List<SysOrder> list = this.sysOrderService.selectByExample(example);
 		return R.ok().put("order", list);
 	}

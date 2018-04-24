@@ -43,9 +43,9 @@ public class UserShopController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/bindShop")
-	public R bindShop(@RequestParam(required=true) int userId,@RequestParam(required=true) int shopId){
-		logger.info("***bindShop_userId***:"+userId+"&&shopId="+shopId);
-		SysUser user = this.sysUserService.selectByPrimaryKey(userId);
+	public R bindShop(@RequestParam(required=true) String wxId,@RequestParam(required=true) int shopId){
+		logger.info("***bindShop_wxId***:"+wxId+"&&shopId="+shopId);
+		SysUser user = this.sysUserService.selectByWxId(wxId);
 		if (user == null) {
 			return R.error("1000", "该用户不存在");
 		}
@@ -55,12 +55,12 @@ public class UserShopController extends BaseController {
 		}
 		UserShopCriteria example = new UserShopCriteria();
 		Criteria criteria = example.createCriteria();
-		criteria.andUserIdEqualTo(userId);
+		criteria.andUserIdEqualTo(user.getId());
 		criteria.andShopIdEqualTo(shopId);
 		List<UserShop> usList = this.userShopService.selectByExample(example);
 		if (usList == null || usList.size() ==0) {
 			UserShop userShop = new UserShop();
-			userShop.setUserId(userId);
+			userShop.setUserId(user.getId());
 			userShop.setShopId(shopId);
 			userShop.setStatus(0);
 			userShop.setType("N");

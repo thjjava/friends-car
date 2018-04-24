@@ -15,9 +15,6 @@ public class SysArea implements Serializable {
     //
     private String areaCode;
 
-    //
-    private String addtime;
-
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -52,14 +49,6 @@ public class SysArea implements Serializable {
         this.areaCode = areaCode == null ? null : areaCode.trim();
     }
 
-    public String getAddtime() {
-        return addtime;
-    }
-
-    public void setAddtime(String addtime) {
-        this.addtime = addtime == null ? null : addtime.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -70,7 +59,6 @@ public class SysArea implements Serializable {
         sb.append(", provinceName=").append(provinceName);
         sb.append(", cityName=").append(cityName);
         sb.append(", areaCode=").append(areaCode);
-        sb.append(", addtime=").append(addtime);
         sb.append("]");
         return sb.toString();
     }

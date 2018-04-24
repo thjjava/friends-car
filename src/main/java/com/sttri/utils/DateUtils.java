@@ -80,7 +80,11 @@ public class DateUtils {
 
     public static String plusDays(int plusNum){
     	DateTime dateTime = new DateTime(DateTimeZone.getDefault());
-    	return format(dateTime.plusDays(1).toDate(),YYYY_MM_DD);
+    	return format(dateTime.plusDays(plusNum).toDate(),YYYY_MM_DD);
+    }
+    
+    public static String plusDays(DateTime dateTime , int plusNum){
+    	return format(dateTime.plusDays(plusNum).toDate(),YYYY_MM_DD);
     }
     
     public static void main(String[] args) {
@@ -96,5 +100,10 @@ public class DateUtils {
         
         DateTime dateTime = new DateTime(DateTimeZone.getDefault());
         System.out.println(format(dateTime.plusDays(1).toDate(),YYYY_MM_DD));
+        
+        for (int i = 1; i <= 15; i++) {
+			String day = DateUtils.plusDays(i);
+			System.out.println("day"+i+":"+day);
+		}
     }
 }

@@ -25,6 +25,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.sttri.entity.OrderComment;
 import com.sttri.entity.OrderCommentCriteria;
 import com.sttri.entity.OrderCommentCriteria.Criteria;
+import com.sttri.entity.SysArea;
+import com.sttri.entity.SysAreaCriteria;
 import com.sttri.entity.SysBusiness;
 import com.sttri.entity.SysBusinessCriteria;
 import com.sttri.entity.SysShop;
@@ -63,7 +65,14 @@ public class ShopController extends BaseController {
 			return R.error("2001", "店铺名称不能为空");
 		}
 		String lastShopNo = this.sysShopService.findMaxShopNo();
-		String shopNo = Util.createShopNo("3101", lastShopNo);
+		SysAreaCriteria example = new SysAreaCriteria();
+		example.createCriteria().andCityNameLike(shop.getAddress());
+		List<SysArea> areas = this.sysAreaService.selectByExample(example);
+		String area_code = "3101";
+		if (areas != null && areas.size() > 0) {
+			area_code = areas.get(0).getAreaCode();
+		}
+		String shopNo = Util.createShopNo(area_code, lastShopNo);
 		shop.setShopNo(shopNo);
 		shop.setRegisterDate(new Date());
 		this.sysShopService.insert(shop);
