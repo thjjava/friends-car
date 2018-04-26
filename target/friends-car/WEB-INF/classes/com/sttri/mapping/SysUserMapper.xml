@@ -4,10 +4,13 @@
   <resultMap id="BaseResultMap" type="com.sttri.entity.SysUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="wxid" property="wxid" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="INTEGER" />
-    <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="label" property="label" jdbcType="VARCHAR" />
@@ -77,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, wxid, nickname, sex, city, mobile, type, status, label, love_mot, love_insurance, 
-    love_maintain, remark, addtime, edittime
+    id, wxid, user_name, nickname, sex, mobile, birthday, city, address, type, status, 
+    label, love_mot, love_insurance, love_maintain, remark, addtime, edittime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysUserCriteria" >
     select
@@ -114,14 +117,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sttri.entity.SysUser" >
-    insert into sys_user (id, wxid, nickname, 
-      sex, city, mobile, 
+    insert into sys_user (id, wxid, user_name, 
+      nickname, sex, mobile, 
+      birthday, city, address, 
       type, status, label, 
       love_mot, love_insurance, love_maintain, 
       remark, addtime, edittime
       )
-    values (#{id,jdbcType=INTEGER}, #{wxid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{wxid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{label,jdbcType=VARCHAR}, 
       #{loveMot,jdbcType=INTEGER}, #{loveInsurance,jdbcType=INTEGER}, #{loveMaintain,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP}
@@ -136,17 +141,26 @@
       <if test="wxid != null" >
         wxid,
       </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
       <if test="nickname != null" >
         nickname,
       </if>
       <if test="sex != null" >
         sex,
       </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
       <if test="city != null" >
         city,
       </if>
-      <if test="mobile != null" >
-        mobile,
+      <if test="address != null" >
+        address,
       </if>
       <if test="type != null" >
         type,
@@ -183,17 +197,26 @@
       <if test="wxid != null" >
         #{wxid,jdbcType=VARCHAR},
       </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
       <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=INTEGER},
       </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
       <if test="city != null" >
         #{city,jdbcType=VARCHAR},
       </if>
-      <if test="mobile != null" >
-        #{mobile,jdbcType=VARCHAR},
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
@@ -239,17 +262,26 @@
       <if test="record.wxid != null" >
         wxid = #{record.wxid,jdbcType=VARCHAR},
       </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
       <if test="record.nickname != null" >
         nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null" >
         sex = #{record.sex,jdbcType=INTEGER},
       </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=VARCHAR},
+      </if>
       <if test="record.city != null" >
         city = #{record.city,jdbcType=VARCHAR},
       </if>
-      <if test="record.mobile != null" >
-        mobile = #{record.mobile,jdbcType=VARCHAR},
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null" >
         type = #{record.type,jdbcType=VARCHAR},
@@ -287,10 +319,13 @@
     update sys_user
     set id = #{record.id,jdbcType=INTEGER},
       wxid = #{record.wxid,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=VARCHAR},
       mobile = #{record.mobile,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       label = #{record.label,jdbcType=VARCHAR},
@@ -310,17 +345,26 @@
       <if test="wxid != null" >
         wxid = #{wxid,jdbcType=VARCHAR},
       </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
       <if test="nickname != null" >
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=INTEGER},
       </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
       <if test="city != null" >
         city = #{city,jdbcType=VARCHAR},
       </if>
-      <if test="mobile != null" >
-        mobile = #{mobile,jdbcType=VARCHAR},
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
@@ -355,10 +399,13 @@
   <update id="updateByPrimaryKey" parameterType="com.sttri.entity.SysUser" >
     update sys_user
     set wxid = #{wxid,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
-      city = #{city,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       label = #{label,jdbcType=VARCHAR},

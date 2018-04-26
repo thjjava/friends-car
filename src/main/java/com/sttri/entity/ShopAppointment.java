@@ -22,6 +22,12 @@ public class ShopAppointment implements Serializable {
     //可预约时段业务服务总数量
     private Integer businessTotal;
 
+    //用户联系方式
+    private String mobile;
+
+    //备注说明
+    private String remark;
+
     //
     private Date addtime;
 
@@ -78,6 +84,22 @@ public class ShopAppointment implements Serializable {
         this.businessTotal = businessTotal;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
+
     public Date getAddtime() {
         return addtime;
     }
@@ -106,6 +128,8 @@ public class ShopAppointment implements Serializable {
         sb.append(", businessDate=").append(businessDate);
         sb.append(", timeNo=").append(timeNo);
         sb.append(", businessTotal=").append(businessTotal);
+        sb.append(", mobile=").append(mobile);
+        sb.append(", remark=").append(remark);
         sb.append(", addtime=").append(addtime);
         sb.append(", edittime=").append(edittime);
         sb.append("]");

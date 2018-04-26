@@ -55,7 +55,7 @@ public class OrderController extends BaseController {
 			return R.error("1000", "该用户不存在");
 		}
 		SysOrderCriteria example = new SysOrderCriteria();
-		example.setOrderByClause("orderCreate desc");
+		example.setOrderByClause("id desc");
 		example.createCriteria().andUserIdEqualTo(user.getId());
 		List<SysOrder> list = this.sysOrderService.selectByExample(example);
 		return R.ok().put("order", list);

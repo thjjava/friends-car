@@ -49,6 +49,9 @@ public class UserCar implements Serializable {
     //违章信息
     private String carIllegal;
 
+    //是否默认 0-否 1-是
+    private Integer isDefault;
+
     //
     private Date addtime;
 
@@ -177,6 +180,14 @@ public class UserCar implements Serializable {
         this.carIllegal = carIllegal == null ? null : carIllegal.trim();
     }
 
+    public Integer getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(Integer isDefault) {
+        this.isDefault = isDefault;
+    }
+
     public Date getAddtime() {
         return addtime;
     }
@@ -214,6 +225,7 @@ public class UserCar implements Serializable {
         sb.append(", carNextMaintenanceMileage=").append(carNextMaintenanceMileage);
         sb.append(", carAnnualTime=").append(carAnnualTime);
         sb.append(", carIllegal=").append(carIllegal);
+        sb.append(", isDefault=").append(isDefault);
         sb.append(", addtime=").append(addtime);
         sb.append(", edittime=").append(edittime);
         sb.append("]");

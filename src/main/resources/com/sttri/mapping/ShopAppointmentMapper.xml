@@ -8,6 +8,8 @@
     <result column="business_date" property="businessDate" jdbcType="VARCHAR" />
     <result column="time_no" property="timeNo" jdbcType="INTEGER" />
     <result column="business_total" property="businessTotal" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
     <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -70,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, shop_id, business_type, business_date, time_no, business_total, addtime, edittime
+    id, shop_id, business_type, business_date, time_no, business_total, mobile, remark, 
+    addtime, edittime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.ShopAppointmentCriteria" >
     select
@@ -108,10 +111,12 @@
   <insert id="insert" parameterType="com.sttri.entity.ShopAppointment" >
     insert into shop_appointment (id, shop_id, business_type, 
       business_date, time_no, business_total, 
-      addtime, edittime)
+      mobile, remark, addtime, 
+      edittime)
     values (#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{businessType,jdbcType=INTEGER}, 
       #{businessDate,jdbcType=VARCHAR}, #{timeNo,jdbcType=INTEGER}, #{businessTotal,jdbcType=INTEGER}, 
-      #{addtime,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP})
+      #{mobile,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{edittime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sttri.entity.ShopAppointment" >
     insert into shop_appointment
@@ -133,6 +138,12 @@
       </if>
       <if test="businessTotal != null" >
         business_total,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="addtime != null" >
         addtime,
@@ -159,6 +170,12 @@
       </if>
       <if test="businessTotal != null" >
         #{businessTotal,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="addtime != null" >
         #{addtime,jdbcType=TIMESTAMP},
@@ -195,6 +212,12 @@
       <if test="record.businessTotal != null" >
         business_total = #{record.businessTotal,jdbcType=INTEGER},
       </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
       <if test="record.addtime != null" >
         addtime = #{record.addtime,jdbcType=TIMESTAMP},
       </if>
@@ -214,6 +237,8 @@
       business_date = #{record.businessDate,jdbcType=VARCHAR},
       time_no = #{record.timeNo,jdbcType=INTEGER},
       business_total = #{record.businessTotal,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
       addtime = #{record.addtime,jdbcType=TIMESTAMP},
       edittime = #{record.edittime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -238,6 +263,12 @@
       <if test="businessTotal != null" >
         business_total = #{businessTotal,jdbcType=INTEGER},
       </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="addtime != null" >
         addtime = #{addtime,jdbcType=TIMESTAMP},
       </if>
@@ -254,6 +285,8 @@
       business_date = #{businessDate,jdbcType=VARCHAR},
       time_no = #{timeNo,jdbcType=INTEGER},
       business_total = #{businessTotal,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       addtime = #{addtime,jdbcType=TIMESTAMP},
       edittime = #{edittime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

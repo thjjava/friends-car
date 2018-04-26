@@ -92,4 +92,15 @@ public class UserShopController extends BaseController {
 		}
 		return R.ok("取消关注成功");
 	}
+	
+	@RequestMapping("/queryShopByUser")
+	public R queryShopByUser(@RequestParam String wxId){
+		logger.info("**查询关注店铺**:"+wxId);
+		SysUser user = this.sysUserService.selectByWxId(wxId);
+		if (user == null) {
+			return R.error("1000", "该用户不存在");
+		}
+		
+		return R.ok();
+	}
 }

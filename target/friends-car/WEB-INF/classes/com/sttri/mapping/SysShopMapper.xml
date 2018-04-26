@@ -466,6 +466,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
+  <!-- 新增接口，根据业务类型 获取店铺列表  -->
   <select id="queryShopByBusinessType" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     s.*
@@ -473,6 +474,7 @@
     where b.business_type = #{b.business_type,jdbcType=INTEGER}
   </select>
   
+  <!-- 新增接口，获取最新店铺编号  -->
   <select id="findMaxShopNo" resultType="java.lang.String">
 	select max(shop_no) from sys_shop
   </select> 

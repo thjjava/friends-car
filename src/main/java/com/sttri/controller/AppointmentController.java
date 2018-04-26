@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -122,7 +123,9 @@ public class AppointmentController extends BaseController {
 			@RequestParam(required=true) String wxId,
 			@RequestParam(required=true) int businessType,
 			@RequestParam(required=true) String businessDate,
-			@RequestParam(required=true) int timeNo ){
+			@RequestParam(required=true) int timeNo,
+			@RequestParam(required=false) String mobile,
+			@RequestParam(required=false) String remark){
 		
 		logger.info("***预约业务_wxId***:"+wxId+"&&shopId="+shopId);
 		SysUser user = this.sysUserService.selectByWxId(wxId);
@@ -144,6 +147,12 @@ public class AppointmentController extends BaseController {
 		shopAppointment.setBusinessDate(businessDate);
 		shopAppointment.setBusinessType(businessType);
 		shopAppointment.setTimeNo(timeNo);
+		if (!StringUtils.isEmpty(mobile)) {
+			shopAppointment.setMobile(mobile);
+		}
+		if (!StringUtils.isEmpty(remark)) {
+			shopAppointment.setRemark(remark);
+		}
 		shopAppointment.setAddtime(new Date());
 		this.shopAppointmentService.insert(shopAppointment);
 		//创建待服务状态的订单

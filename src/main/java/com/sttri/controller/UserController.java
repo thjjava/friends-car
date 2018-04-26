@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sttri.entity.SysOrderCriteria;
@@ -49,24 +49,45 @@ public class UserController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public R save(@RequestBody SysUser user){
-		if (StringUtils.isEmpty(user.getWxid())) {
+	@ResponseBody
+	public R save(@RequestParam(value="wxId", required=true) String wxId,
+				@RequestParam(value="nickName", required=true) String nickName,
+				@RequestParam(value="sex", required=true) Integer sex,
+				@RequestParam(value="city", required=true) String city,
+				@RequestParam(value="address", required=false) String address){
+		
+		if (StringUtils.isEmpty(wxId)) {
 			return R.error("1004", "微信ID不能为空");
 		}
 		SysUserCriteria example = new SysUserCriteria();
-		example.createCriteria().andWxidEqualTo(user.getWxid());
+		example.createCriteria().andWxidEqualTo(wxId);
 		List<SysUser> uList = this.sysUserService.selectByExample(example);
 		if (uList != null && uList.size() >0) {
-			if (uList.get(0).getStatus() == 0) {
+			SysUser user =  uList.get(0);
+			if (user.getStatus() == 0) {
 				return R.error("1005", "该用户已存在");
 			}else {
+				user.setNickname(nickName);
+				user.setSex(sex);
+				user.setCity(city);
+				user.setAddress(address);
 				user.setStatus(0);
 				user.setEdittime(new Date());
 				this.sysUserService.updateByPrimaryKeySelective(user);
 			}
 		}else {
-			user.setAddtime(new Date());
+			SysUser user = new SysUser();
+			user.setWxid(wxId);
+			user.setNickname(nickName);
+			user.setSex(sex);
+			user.setCity(city);
+			user.setAddress(address);
+			user.setStatus(0);
 			user.setType(UserTypeEnum.N.getType());
+			user.setLoveMot(0);
+			user.setLoveMaintain(0);
+			user.setLoveInsurance(0);
+			user.setAddtime(new Date());
 			this.sysUserService.insertSelective(user);
 		}
 		return R.ok();
@@ -104,9 +125,37 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping("/update")
-	public R update(@RequestBody SysUser user){
-		user.setEdittime(new Date());
-		this.sysUserService.updateByPrimaryKeySelective(user);
-		return R.ok();
+	@ResponseBody
+	public R update(@RequestParam(value="wxId", required=true) String wxId,
+			@RequestParam(value="nickName", required=true) String nickName,
+			@RequestParam(value="sex", required=true) Integer sex,
+			@RequestParam(value="city", required=true) String city,
+			@RequestParam(value="address", required=false) String address,
+			@RequestParam(value="userName", required=false) String userName,
+			@RequestParam(value="mobile", required=false) String mobile,
+			@RequestParam(value="birthday", required=false) String birthday){
+		
+		if (StringUtils.isEmpty(wxId)) {
+			return R.error("1004", "微信ID不能为空");
+		}
+		SysUserCriteria example = new SysUserCriteria();
+		example.createCriteria().andWxidEqualTo(wxId);
+		List<SysUser> uList = this.sysUserService.selectByExample(example);
+		if (uList != null && uList.size() >0) {
+			SysUser user = uList.get(0);
+			user.setWxid(wxId);
+			user.setNickname(nickName);
+			user.setSex(sex);
+			user.setCity(city);
+			user.setAddress(address);
+			user.setUserName(userName);
+			user.setMobile(mobile);
+			user.setBirthday(birthday);
+			user.setEdittime(new Date());
+			this.sysUserService.updateByPrimaryKeySelective(user);
+			return R.ok();
+		}else {
+			return R.error("1000", "该用户不存在");
+		}
 	}
 }

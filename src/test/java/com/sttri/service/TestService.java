@@ -17,6 +17,7 @@ import com.sttri.entity.SysBusiness;
 import com.sttri.entity.SysBusinessCriteria;
 import com.sttri.entity.SysOrderCriteria;
 import com.sttri.entity.SysOrderCriteria.Criteria;
+import com.sttri.entity.SysOrder;
 import com.sttri.entity.SysShop;
 import com.sttri.entity.SysShopCriteria;
 import com.sttri.entity.SysUser;
@@ -131,8 +132,17 @@ public class TestService {
 		System.out.println("2="+user);
 	}*/
 	
-	@Test
+	/*@Test
 	public void queryMaxShopNo(){
 		System.out.println(sysShopService.findMaxShopNo());
+	}*/
+	
+	@Test
+	public void queryOrdersByUser(){
+		SysOrderCriteria example = new SysOrderCriteria();
+		example.setOrderByClause("order_create desc");
+		example.createCriteria().andUserIdEqualTo(1);
+		List<SysOrder> list = this.sysOrderService.selectByExample(example);
+		System.out.println(list);
 	}
 }

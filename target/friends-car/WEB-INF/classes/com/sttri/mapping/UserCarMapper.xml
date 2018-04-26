@@ -17,6 +17,7 @@
     <result column="car_next_maintenance_mileage" property="carNextMaintenanceMileage" jdbcType="VARCHAR" />
     <result column="car_annual_time" property="carAnnualTime" jdbcType="VARCHAR" />
     <result column="car_illegal" property="carIllegal" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
     <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
     <result column="edittime" property="edittime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -81,7 +82,7 @@
   <sql id="Base_Column_List" >
     id, user_id, car_no, car_brand, car_models, car_vin, car_engine, car_buy_time, car_last_maintenance_time, 
     car_last_maintenance_mileage, car_insurance_time, car_next_maintenance_time, car_next_maintenance_mileage, 
-    car_annual_time, car_illegal, addtime, edittime
+    car_annual_time, car_illegal, is_default, addtime, edittime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.UserCarCriteria" >
     select
@@ -122,15 +123,15 @@
       car_engine, car_buy_time, car_last_maintenance_time, 
       car_last_maintenance_mileage, car_insurance_time, 
       car_next_maintenance_time, car_next_maintenance_mileage, 
-      car_annual_time, car_illegal, addtime, 
-      edittime)
+      car_annual_time, car_illegal, is_default, 
+      addtime, edittime)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{carNo,jdbcType=VARCHAR}, 
       #{carBrand,jdbcType=VARCHAR}, #{carModels,jdbcType=VARCHAR}, #{carVin,jdbcType=VARCHAR}, 
       #{carEngine,jdbcType=VARCHAR}, #{carBuyTime,jdbcType=VARCHAR}, #{carLastMaintenanceTime,jdbcType=VARCHAR}, 
       #{carLastMaintenanceMileage,jdbcType=VARCHAR}, #{carInsuranceTime,jdbcType=VARCHAR}, 
       #{carNextMaintenanceTime,jdbcType=VARCHAR}, #{carNextMaintenanceMileage,jdbcType=VARCHAR}, 
-      #{carAnnualTime,jdbcType=VARCHAR}, #{carIllegal,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
-      #{edittime,jdbcType=TIMESTAMP})
+      #{carAnnualTime,jdbcType=VARCHAR}, #{carIllegal,jdbcType=VARCHAR}, #{isDefault,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sttri.entity.UserCar" >
     insert into user_car
@@ -179,6 +180,9 @@
       </if>
       <if test="carIllegal != null" >
         car_illegal,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
       </if>
       <if test="addtime != null" >
         addtime,
@@ -232,6 +236,9 @@
       </if>
       <if test="carIllegal != null" >
         #{carIllegal,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
       </if>
       <if test="addtime != null" >
         #{addtime,jdbcType=TIMESTAMP},
@@ -295,6 +302,9 @@
       <if test="record.carIllegal != null" >
         car_illegal = #{record.carIllegal,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDefault != null" >
+        is_default = #{record.isDefault,jdbcType=INTEGER},
+      </if>
       <if test="record.addtime != null" >
         addtime = #{record.addtime,jdbcType=TIMESTAMP},
       </if>
@@ -323,6 +333,7 @@
       car_next_maintenance_mileage = #{record.carNextMaintenanceMileage,jdbcType=VARCHAR},
       car_annual_time = #{record.carAnnualTime,jdbcType=VARCHAR},
       car_illegal = #{record.carIllegal,jdbcType=VARCHAR},
+      is_default = #{record.isDefault,jdbcType=INTEGER},
       addtime = #{record.addtime,jdbcType=TIMESTAMP},
       edittime = #{record.edittime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -374,6 +385,9 @@
       <if test="carIllegal != null" >
         car_illegal = #{carIllegal,jdbcType=VARCHAR},
       </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
       <if test="addtime != null" >
         addtime = #{addtime,jdbcType=TIMESTAMP},
       </if>
@@ -399,6 +413,7 @@
       car_next_maintenance_mileage = #{carNextMaintenanceMileage,jdbcType=VARCHAR},
       car_annual_time = #{carAnnualTime,jdbcType=VARCHAR},
       car_illegal = #{carIllegal,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=INTEGER},
       addtime = #{addtime,jdbcType=TIMESTAMP},
       edittime = #{edittime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

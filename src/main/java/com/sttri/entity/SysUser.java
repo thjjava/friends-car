@@ -10,17 +10,26 @@ public class SysUser implements Serializable {
     //微信ID
     private String wxid;
 
+    //用户姓名
+    private String userName;
+
     //昵称
     private String nickname;
 
     //性别 0-男 1-女 2-其他
     private Integer sex;
 
+    //联系方式
+    private String mobile;
+
+    //生日
+    private String birthday;
+
     //所在城市
     private String city;
 
-    //联系方式
-    private String mobile;
+    //详细地址
+    private String address;
 
     //用户类型 N-新人 A-高频高价 B-高频低价 C-低频高价 D-低频低价 E-其他
     private String type;
@@ -67,6 +76,14 @@ public class SysUser implements Serializable {
         this.wxid = wxid == null ? null : wxid.trim();
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -83,6 +100,22 @@ public class SysUser implements Serializable {
         this.sex = sex;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday == null ? null : birthday.trim();
+    }
+
     public String getCity() {
         return city;
     }
@@ -91,12 +124,12 @@ public class SysUser implements Serializable {
         this.city = city == null ? null : city.trim();
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getAddress() {
+        return address;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     public String getType() {
@@ -179,10 +212,13 @@ public class SysUser implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", wxid=").append(wxid);
+        sb.append(", userName=").append(userName);
         sb.append(", nickname=").append(nickname);
         sb.append(", sex=").append(sex);
-        sb.append(", city=").append(city);
         sb.append(", mobile=").append(mobile);
+        sb.append(", birthday=").append(birthday);
+        sb.append(", city=").append(city);
+        sb.append(", address=").append(address);
         sb.append(", type=").append(type);
         sb.append(", status=").append(status);
         sb.append(", label=").append(label);
