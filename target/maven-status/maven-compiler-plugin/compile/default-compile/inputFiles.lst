@@ -30,7 +30,6 @@ D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\SysShop.jav
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\UserCarCriteria.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\utils\DateUtils.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\ShopBusinessCriteria.java
-D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\SysCarCriteria.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\OrderComment.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\service\IOrderCommentService.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\dao\UserCarMapper.java
@@ -53,7 +52,6 @@ D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\CarSeries.j
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\CarSeriesCriteria.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\SysEmployee.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\UserShopCriteria.java
-D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\SysCar.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\controller\IndexController.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\service\ICarBrandService.java
 D:\soft\eclipse\workspace\friends-car\src\main\java\com\sttri\entity\ShopBusiness.java

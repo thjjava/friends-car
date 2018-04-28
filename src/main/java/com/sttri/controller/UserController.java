@@ -54,7 +54,10 @@ public class UserController extends BaseController{
 				@RequestParam(value="nickName", required=true) String nickName,
 				@RequestParam(value="sex", required=true) Integer sex,
 				@RequestParam(value="city", required=true) String city,
-				@RequestParam(value="address", required=false) String address){
+				@RequestParam(value="address", required=false) String address,
+				@RequestParam(value="userName", required=false) String userName,
+				@RequestParam(value="mobile", required=false) String mobile,
+				@RequestParam(value="birthday", required=false) String birthday){
 		
 		if (StringUtils.isEmpty(wxId)) {
 			return R.error("1004", "微信ID不能为空");
@@ -71,6 +74,9 @@ public class UserController extends BaseController{
 				user.setSex(sex);
 				user.setCity(city);
 				user.setAddress(address);
+				user.setUserName(userName);
+				user.setMobile(mobile);
+				user.setBirthday(birthday);
 				user.setStatus(0);
 				user.setEdittime(new Date());
 				this.sysUserService.updateByPrimaryKeySelective(user);
@@ -82,6 +88,9 @@ public class UserController extends BaseController{
 			user.setSex(sex);
 			user.setCity(city);
 			user.setAddress(address);
+			user.setUserName(userName);
+			user.setMobile(mobile);
+			user.setBirthday(birthday);
 			user.setStatus(0);
 			user.setType(UserTypeEnum.N.getType());
 			user.setLoveMot(0);

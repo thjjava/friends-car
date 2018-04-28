@@ -5,15 +5,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sttri.entity.SysOrder;
 import com.sttri.entity.SysOrderCriteria;
 import com.sttri.entity.SysUser;
+import com.sttri.enums.OrderIsCommentEnum;
+import com.sttri.enums.PayStatusEnum;
 import com.sttri.service.ISysOrderService;
 import com.sttri.service.ISysUserService;
 import com.sttri.utils.R;
@@ -29,10 +31,47 @@ public class OrderController extends BaseController {
 	
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public R save(@RequestBody SysOrder order){
+	@ResponseBody
+	public R save(@RequestParam(value="shopId",required=true) Integer shopId,
+				@RequestParam(value="wxId",required=true) String wxId,
+				@RequestParam(value="businessType",required=true) Integer businessType,
+				@RequestParam(value="status",required=true) Integer status,
+				@RequestParam(value="carNo",required=true) String carNo,
+				@RequestParam(value="orderSource",required=true) Integer orderSource,
+				@RequestParam(value="orderTime",required=false) String orderTime,
+				@RequestParam(value="orderFee",required=true) Long orderFee,
+				@RequestParam(value="serviceEmployee",required=false) String serviceEmployee,
+				@RequestParam(value="serviceContent",required=false) String serviceContent,
+				@RequestParam(value="serviceSuggest",required=false) String serviceSuggest,
+				@RequestParam(value="serviceEnsure",required=false) String serviceEnsure,
+				@RequestParam(value="carCurrentMileage",required=false) String carCurrentMileage,
+				@RequestParam(value="remark",required=false) String remark){
+		
+		logger.info("**createOrder**:"+wxId);
+		SysUser user = this.sysUserService.selectByWxId(wxId);
+		if (user == null) {
+			return R.error("1000", "该用户不存在");
+		}
 		String lastOrderNo = this.sysOrderService.findMaxOrderNo();
+		SysOrder order = new SysOrder();
+		order.setShopId(shopId);
+		order.setUserId(user.getId());
 		order.setOrderNo(Util.createOrderNo(lastOrderNo));
-		order.setStatus(0);
+		order.setStatus(status);
+		order.setBusinessType(businessType);
+		order.setCarNo(carNo);
+		order.setOrderSource(orderSource);
+		order.setOrderTime(orderTime);
+		order.setOrderFee(orderFee);
+		order.setServiceEmployee(serviceEmployee);
+		order.setServiceContent(serviceContent);
+		order.setServiceSuggest(serviceSuggest);
+		order.setServiceEnsure(serviceEnsure);
+		order.setCarCurrentMileage(carCurrentMileage);
+		order.setRemark(remark);
+		order.setPayStatus(PayStatusEnum.UN_PAY.getType());
+		order.setAmount(orderFee);
+		order.setIsComment(OrderIsCommentEnum.NO_COMMENT.getType());
 		order.setOrderCreate(new Date());
 		int result = this.sysOrderService.insertSelective(order);
 		if (result == 1) {
@@ -58,6 +97,7 @@ public class OrderController extends BaseController {
 		example.setOrderByClause("id desc");
 		example.createCriteria().andUserIdEqualTo(user.getId());
 		List<SysOrder> list = this.sysOrderService.selectByExample(example);
+		logger.info("**queryUserOrders**:"+list);
 		return R.ok().put("order", list);
 	}
 	
@@ -71,10 +111,39 @@ public class OrderController extends BaseController {
 	}
 	
 	@RequestMapping("/update")
-	public R update(@RequestBody SysOrder order){
+	@ResponseBody
+	public R update(@RequestParam(value="orderId",required=true) Integer orderId,
+			@RequestParam(value="status",required=true) Integer status,
+			@RequestParam(value="orderFee",required=true) Long orderFee,
+			@RequestParam(value="amount",required=true) Long amount,
+			@RequestParam(value="payStatus",required=true) Integer payStatus,
+			@RequestParam(value="orderTime",required=false) String orderTime,
+			@RequestParam(value="serviceEmployee",required=false) String serviceEmployee,
+			@RequestParam(value="serviceContent",required=false) String serviceContent,
+			@RequestParam(value="serviceSuggest",required=false) String serviceSuggest,
+			@RequestParam(value="serviceEnsure",required=false) String serviceEnsure,
+			@RequestParam(value="carCurrentMileage",required=false) String carCurrentMileage,
+			@RequestParam(value="remark",required=false) String remark){
+		logger.info("**updateOrder**:"+orderId);
+		SysOrder order = this.sysOrderService.selectByPrimaryKey(orderId);
+		if (order == null) {
+			return R.error("4000", "该订单不存在!");
+		}
+		order.setStatus(status);
+		order.setOrderFee(orderFee);
+		order.setAmount(amount);
+		order.setPayStatus(payStatus);
+		order.setOrderTime(orderTime);
+		order.setServiceEmployee(serviceEmployee);
+		order.setServiceContent(serviceContent);
+		order.setServiceSuggest(serviceSuggest);
+		order.setServiceEnsure(serviceEnsure);
+		order.setCarCurrentMileage(carCurrentMileage);
+		order.setRemark(remark);
 		order.setEdittime(new Date());
 		this.sysOrderService.updateByPrimaryKeySelective(order);
-		return R.ok();
+		logger.info("**after_update_order**:"+order);
+		return R.ok().put("order", order);
 	}
 	
 	
