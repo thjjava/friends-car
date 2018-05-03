@@ -478,4 +478,17 @@
   <select id="findMaxShopNo" resultType="java.lang.String">
 	select max(shop_no) from sys_shop
   </select> 
+  
+  <!-- 新增接口，根据用户id查询关注的店铺 -->
+  <select id="queryShopByUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+  	s.* 
+  	from 
+  	sys_shop s 
+  	LEFT JOIN 
+  	user_shop us 
+  	on 
+  	us.shop_id = s.id 
+  	where us.user_id=#{us.user_id,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -35,4 +35,7 @@ public interface SysShopMapper {
     
     //新增接口，获取最新店铺编号
     String findMaxShopNo();
+    
+    //新增接口，根据用户id查询关注的店铺列表
+    List<SysShop> queryShopByUser(Integer user_id);
 }

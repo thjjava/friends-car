@@ -60,7 +60,7 @@ public class ShopController extends BaseController {
 	
 	
 	@RequestMapping("/save")
-	public R addShop(@RequestBody SysShop shop){
+	public R save(@RequestBody SysShop shop){
 		if (StringUtils.isEmpty(shop.getShopNo())) {
 			return R.error("2001", "店铺名称不能为空");
 		}
@@ -105,7 +105,7 @@ public class ShopController extends BaseController {
 	 * http://localhost:8080/friends-car/sys/shop/queryByBusinessType?businessType=0 
 	 */
 	@RequestMapping("/queryByBusinessType")
-	public R queryshopsByBusinessType(@RequestParam int businessType){
+	public R queryShopByBusinessType(@RequestParam int businessType){
 		SysBusinessCriteria businessCriteria = new SysBusinessCriteria();
 		com.sttri.entity.SysBusinessCriteria.Criteria criteria = businessCriteria.createCriteria();
 		criteria.andTypeEqualTo(businessType);

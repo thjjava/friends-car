@@ -100,7 +100,7 @@ public class UserShopController extends BaseController {
 		if (user == null) {
 			return R.error("1000", "该用户不存在");
 		}
-		
-		return R.ok();
+		List<SysShop> shop = this.sysShopService.queryShopByUser(user.getId());
+		return R.ok().put("shops", shop);
 	}
 }

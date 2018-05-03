@@ -145,4 +145,10 @@ public class TestService {
 		List<SysOrder> list = this.sysOrderService.selectByExample(example);
 		System.out.println(list);
 	}
+	
+	@Test
+	public void queryShopByUser(){
+		List<SysShop> shop = this.sysShopService.queryShopByUser(1);
+		System.out.println(shop);
+	}
 }

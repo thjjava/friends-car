@@ -2,7 +2,9 @@ package com.sttri.dao;
 
 import com.sttri.entity.UserShop;
 import com.sttri.entity.UserShopCriteria;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserShopMapper {
@@ -27,4 +29,5 @@ public interface UserShopMapper {
     int updateByPrimaryKeySelective(UserShop record);
 
     int updateByPrimaryKey(UserShop record);
+    
 }

@@ -90,4 +90,10 @@ public class SysShopServiceImpl implements ISysShopService {
 	public String findMaxShopNo(){
 		return sysShopMapper.findMaxShopNo();
 	}
+
+	@Override
+	public List<SysShop> queryShopByUser(Integer user_id) {
+		// TODO Auto-generated method stub
+		return sysShopMapper.queryShopByUser(user_id);
+	}
 }
