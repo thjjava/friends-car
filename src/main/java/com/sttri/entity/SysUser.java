@@ -16,7 +16,10 @@ public class SysUser implements Serializable {
     //昵称
     private String nickname;
 
-    //性别 0-男 1-女 2-其他
+    //微信头像地址
+    private String headImgUrl;
+
+    //性别 1-男 2-女 0-未知
     private Integer sex;
 
     //联系方式
@@ -90,6 +93,14 @@ public class SysUser implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl == null ? null : headImgUrl.trim();
     }
 
     public Integer getSex() {
@@ -214,6 +225,7 @@ public class SysUser implements Serializable {
         sb.append(", wxid=").append(wxid);
         sb.append(", userName=").append(userName);
         sb.append(", nickname=").append(nickname);
+        sb.append(", headImgUrl=").append(headImgUrl);
         sb.append(", sex=").append(sex);
         sb.append(", mobile=").append(mobile);
         sb.append(", birthday=").append(birthday);

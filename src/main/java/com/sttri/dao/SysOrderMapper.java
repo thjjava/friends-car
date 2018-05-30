@@ -2,6 +2,7 @@ package com.sttri.dao;
 
 import com.sttri.entity.SysOrder;
 import com.sttri.entity.SysOrderCriteria;
+import com.sttri.vo.OrderVo;
 
 import java.util.List;
 
@@ -35,4 +36,7 @@ public interface SysOrderMapper {
     
     //新增接口，获取最新订单编号
     String findMaxOrderNo();
+    
+    //新增接口，根据用户id获取用户所有订单列表
+    List<OrderVo> queryUserOrders(@Param("user_id") Integer user_id);
 }

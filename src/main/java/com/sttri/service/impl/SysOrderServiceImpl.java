@@ -4,6 +4,7 @@ import com.sttri.dao.SysOrderMapper;
 import com.sttri.entity.SysOrder;
 import com.sttri.entity.SysOrderCriteria;
 import com.sttri.service.ISysOrderService;
+import com.sttri.vo.OrderVo;
 
 import java.util.List;
 
@@ -92,5 +93,11 @@ public class SysOrderServiceImpl implements ISysOrderService{
 	@Override
 	public String findMaxOrderNo(){
 		return this.sysOrderMapper.findMaxOrderNo();
+	}
+
+	@Override
+	public List<OrderVo> queryUserOrders(Integer user_id) {
+		// TODO Auto-generated method stub
+		return this.sysOrderMapper.queryUserOrders(user_id);
 	}
 }

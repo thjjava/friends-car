@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sttri.entity.SysOrder;
-import com.sttri.entity.SysOrderCriteria;
 import com.sttri.entity.SysUser;
+import com.sttri.entity.UserCar;
+import com.sttri.entity.UserCarCriteria;
 import com.sttri.enums.OrderIsCommentEnum;
 import com.sttri.enums.PayStatusEnum;
 import com.sttri.service.ISysOrderService;
 import com.sttri.service.ISysUserService;
+import com.sttri.service.IUserCarService;
 import com.sttri.utils.R;
 import com.sttri.utils.Util;
+import com.sttri.vo.OrderVo;
 
 @RestController
 @RequestMapping("/sys/order")
@@ -28,6 +31,8 @@ public class OrderController extends BaseController {
 	private ISysOrderService sysOrderService;
 	@Autowired
 	private ISysUserService sysUserService;
+	@Autowired
+	private IUserCarService userCarService;
 	
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
@@ -93,10 +98,7 @@ public class OrderController extends BaseController {
 		if (user == null) {
 			return R.error("1000", "该用户不存在");
 		}
-		SysOrderCriteria example = new SysOrderCriteria();
-		example.setOrderByClause("id desc");
-		example.createCriteria().andUserIdEqualTo(user.getId());
-		List<SysOrder> list = this.sysOrderService.selectByExample(example);
+		List<OrderVo> list = this.sysOrderService.queryUserOrders(user.getId());
 		logger.info("**queryUserOrders**:"+list);
 		return R.ok().put("order", list);
 	}
@@ -107,7 +109,15 @@ public class OrderController extends BaseController {
 		if (order == null) {
 			return R.error("4000", "订单不存在");
 		}
-		return R.ok().put("order", order);
+		String carNo = order.getCarNo();
+		UserCarCriteria example = new UserCarCriteria();
+		example.createCriteria().andCarNoEqualTo(carNo);
+		List<UserCar> uCars = this.userCarService.selectByExample(example);
+		UserCar userCar = null;
+		if (uCars != null && uCars.size() >0) {
+			userCar = uCars.get(0);
+		}
+		return R.ok().put("order", order).put("car", userCar);
 	}
 	
 	@RequestMapping("/update")

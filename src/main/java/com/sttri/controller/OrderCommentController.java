@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sttri.entity.OrderComment;
 import com.sttri.entity.SysOrder;
-import com.sttri.entity.SysShop;
-import com.sttri.entity.SysUser;
 import com.sttri.service.IOrderCommentService;
 import com.sttri.service.ISysOrderService;
 import com.sttri.service.ISysShopService;
@@ -32,9 +30,7 @@ public class OrderCommentController extends BaseController {
 	
 	@RequestMapping("/save")
 	@ResponseBody
-	public R save(@RequestParam(value="wxId",required=true) String wxId,
-			@RequestParam(value="orderId",required=true) Integer orderId,
-			@RequestParam(value="shopId",required=true) Integer shopId,
+	public R save(@RequestParam(value="orderId",required=true) Integer orderId,
 			@RequestParam(value="serviceLevel",required=true) Integer serviceLevel,
 			@RequestParam(value="waitLevel",required=true) Integer waitLevel,
 			@RequestParam(value="attitudeLevel",required=true) Integer attitudeLevel,
@@ -43,22 +39,14 @@ public class OrderCommentController extends BaseController {
 			@RequestParam(value="content",required=true) String content,
 			@RequestParam(value="nextServiceAdvice",required=false) String nextServiceAdvice){
 		
-		logger.info("**createOrderComment**:"+wxId);
-		SysUser user = this.sysUserService.selectByWxId(wxId);
-		if (user == null) {
-			return R.error("1000", "该用户不存在");
-		}
-		SysShop shop = this.sysShopService.selectByPrimaryKey(shopId);
-		if (shop == null) {
-			return R.error("2000","店铺不存在");
-		}
+		logger.info("**createOrderComment**:"+orderId);
 		SysOrder order = this.sysOrderService.selectByPrimaryKey(orderId);
 		if (order == null) {
 			return R.error("4000","订单不存在");
 		}
 		OrderComment orderComment = new OrderComment();
-		orderComment.setUserId(user.getId());
-		orderComment.setShopId(shopId);
+		orderComment.setUserId(order.getUserId());
+		orderComment.setShopId(order.getShopId());
 		orderComment.setOrderId(orderId);
 		orderComment.setAttitudeLevel(attitudeLevel);
 		orderComment.setServiceLevel(serviceLevel);

@@ -28,6 +28,7 @@ import com.sttri.enums.OrderIsCommentEnum;
 import com.sttri.enums.OrderStatusEnum;
 import com.sttri.service.ISysShopService;
 import com.sttri.utils.R;
+import com.sttri.vo.OrderVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring.xml",
@@ -139,16 +140,17 @@ public class TestService {
 	
 	@Test
 	public void queryOrdersByUser(){
-		SysOrderCriteria example = new SysOrderCriteria();
+		/*SysOrderCriteria example = new SysOrderCriteria();
 		example.setOrderByClause("order_create desc");
 		example.createCriteria().andUserIdEqualTo(1);
-		List<SysOrder> list = this.sysOrderService.selectByExample(example);
+		List<SysOrder> list = this.sysOrderService.selectByExample(example);*/
+		List<OrderVo> list = this.sysOrderService.queryUserOrders(1);
 		System.out.println(list);
 	}
 	
-	@Test
+	/*@Test
 	public void queryShopByUser(){
 		List<SysShop> shop = this.sysShopService.queryShopByUser(1);
 		System.out.println(shop);
-	}
+	}*/
 }

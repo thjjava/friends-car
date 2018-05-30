@@ -6,6 +6,7 @@
     <result column="wxid" property="wxid" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="INTEGER" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
     <result column="birthday" property="birthday" jdbcType="VARCHAR" />
@@ -80,8 +81,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, wxid, user_name, nickname, sex, mobile, birthday, city, address, type, status, 
-    label, love_mot, love_insurance, love_maintain, remark, addtime, edittime
+    id, wxid, user_name, nickname, head_img_url, sex, mobile, birthday, city, address, 
+    type, status, label, love_mot, love_insurance, love_maintain, remark, addtime, edittime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sttri.entity.SysUserCriteria" >
     select
@@ -118,19 +119,19 @@
   </delete>
   <insert id="insert" parameterType="com.sttri.entity.SysUser" >
     insert into sys_user (id, wxid, user_name, 
-      nickname, sex, mobile, 
-      birthday, city, address, 
-      type, status, label, 
-      love_mot, love_insurance, love_maintain, 
-      remark, addtime, edittime
-      )
+      nickname, head_img_url, sex, 
+      mobile, birthday, city, 
+      address, type, status, 
+      label, love_mot, love_insurance, 
+      love_maintain, remark, addtime, 
+      edittime)
     values (#{id,jdbcType=INTEGER}, #{wxid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{label,jdbcType=VARCHAR}, 
-      #{loveMot,jdbcType=INTEGER}, #{loveInsurance,jdbcType=INTEGER}, #{loveMaintain,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{edittime,jdbcType=TIMESTAMP}
-      )
+      #{nickname,jdbcType=VARCHAR}, #{headImgUrl,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{mobile,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{label,jdbcType=VARCHAR}, #{loveMot,jdbcType=INTEGER}, #{loveInsurance,jdbcType=INTEGER}, 
+      #{loveMaintain,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{edittime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sttri.entity.SysUser" >
     insert into sys_user
@@ -146,6 +147,9 @@
       </if>
       <if test="nickname != null" >
         nickname,
+      </if>
+      <if test="headImgUrl != null" >
+        head_img_url,
       </if>
       <if test="sex != null" >
         sex,
@@ -202,6 +206,9 @@
       </if>
       <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headImgUrl != null" >
+        #{headImgUrl,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=INTEGER},
@@ -268,6 +275,9 @@
       <if test="record.nickname != null" >
         nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
+      <if test="record.headImgUrl != null" >
+        head_img_url = #{record.headImgUrl,jdbcType=VARCHAR},
+      </if>
       <if test="record.sex != null" >
         sex = #{record.sex,jdbcType=INTEGER},
       </if>
@@ -321,6 +331,7 @@
       wxid = #{record.wxid,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
+      head_img_url = #{record.headImgUrl,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=INTEGER},
       mobile = #{record.mobile,jdbcType=VARCHAR},
       birthday = #{record.birthday,jdbcType=VARCHAR},
@@ -350,6 +361,9 @@
       </if>
       <if test="nickname != null" >
         nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headImgUrl != null" >
+        head_img_url = #{headImgUrl,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=INTEGER},
@@ -401,6 +415,7 @@
     set wxid = #{wxid,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
+      head_img_url = #{headImgUrl,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       mobile = #{mobile,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=VARCHAR},
