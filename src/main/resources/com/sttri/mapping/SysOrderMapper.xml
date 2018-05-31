@@ -572,11 +572,10 @@
   </select>
   
   <!-- 新增接口，根据用户ID获取用户所有订单-->
-  <resultMap type="com.sttri.vo.OrderVo" id="OrdersMap"
-		extends="BaseResultMap">
+  <resultMap type="com.sttri.vo.OrderVo" id="OrdersMap" extends="BaseResultMap">
 		<result column="shop_name" property="shopName" jdbcType="VARCHAR" />
-	</resultMap>
+  </resultMap>
   <select id="queryUserOrders" resultMap="OrdersMap" parameterType="java.lang.Integer" >
-    select o.*,s.shop_name from sys_order o left join sys_shop s on s.id=o.shop_id where o.user_id=#{user_id,jdbcType=INTEGER} order by id desc
+    select o.*,s.shop_name from sys_order o left join sys_shop s on s.id=o.shop_id where o.user_id=#{user_id,jdbcType=INTEGER}
   </select>
 </mapper>
