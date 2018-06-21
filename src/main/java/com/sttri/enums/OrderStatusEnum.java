@@ -9,8 +9,7 @@ public enum OrderStatusEnum {
 	FOR_SERVICE(0,"待服务"),
 	SERVICING(1,"服务中"),
 	FOR_PAYMENT(2,"代付款"),
-	FOR_SETTLEMENT(3,"待结算"),
-	COMPLETED(4,"已完成");
+	COMPLETED(3,"已完成");
 
 	private Integer type;
 	private String desc;

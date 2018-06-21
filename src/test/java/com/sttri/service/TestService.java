@@ -1,6 +1,7 @@
 package com.sttri.service;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import sun.tools.tree.ThisExpression;
 
 import com.sttri.entity.SysBusiness;
 import com.sttri.entity.SysBusinessCriteria;
@@ -53,8 +52,8 @@ public class TestService {
 /*	@Test
 	public void addShop(){
 		SysShop shop = new SysShop();
-		shop.setShopNo("SN002");
-		shop.setShopName("test002");
+		shop.setShopNo("SN003");
+		shop.setShopName("test003");
 		shop.setAddress("上海");
 		shop.setBusinessStartTime("09:00:00");
 		shop.setBusinessEndTime("20:00:00");
@@ -64,6 +63,7 @@ public class TestService {
 		shop.setLon("123");
 		shop.setShopQrcode("11");
 		shop.setEmployeesQrcode("22");
+		shop.setScore(BigDecimal.valueOf(0));
 		shop.setRegisterDate(new Date());
 		int result = this.sysShopService.insert(shop);
 		System.out.println("测试新增结果:"+result);
